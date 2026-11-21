@@ -3,6 +3,24 @@
 Maintained by local Qoder. Each entry records what changed in the deployed cloud
 configuration, newest first, so a reviewer can audit the build-up.
 
+## 2026-11-21T22:49+08:00 — Schedules and MCP smoke test
+
+- Smoke session `sess_00w6ata5zso3k1b5b3xu` under identity
+  `idn_9a3d6bbc269ad6a6d830ce80`:
+  - moomoo MCP reachable; `quote_stock_quote` returned US.NVDA 125.53
+    (data_date 2026-11-20, after-hours 130.01)
+  - skills mounted at `/mnt/skills` (8 zips)
+  - package not mounted at `/data/moomoo-strategy/qoder-submission`; the agent
+    reported the blocker and placed no orders
+- Schedules created against the template, both **paused** until the repository is
+  mounted:
+  - `sched_741c144265ed0bd75c524391` pre-market scan, cron `0 9 * * 1-5`,
+    America/New_York
+  - `sched_54e34049c9dc80173655aea0` post-close review, cron `45 15 * * 1-5`,
+    America/New_York
+- Both initial events instruct: reply NO REPO MOUNTED and stop when the package
+  is absent.
+
 ## 2026-11-21T22:45+08:00 — Published to GitHub
 
 - Repo: https://github.com/yz4719/qoder-submission (public, `main`)
