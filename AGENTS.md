@@ -3,6 +3,15 @@
 Maintained by local Qoder. Each entry records what changed in the deployed cloud
 configuration, newest first, so a reviewer can audit the build-up.
 
+## 2026-11-21T22:45+08:00 — Published to GitHub
+
+- Repo: https://github.com/yz4719/qoder-submission (public, `main`)
+- Two commits: package import, then README reflecting agents v2 / template /
+  vault / skills.
+- Forward template-level `github_repositories` binding rejected by the API
+  (HTTP 400 for URL, `.git` URL, relative and absolute mount paths), so the
+  repository is attached from the Forward console instead.
+
 ## 2026-11-21T22:40+08:00 — Forward template + GitHub binding
 
 - Published package to GitHub `moomoo-strategy/qoder-submission` (recommended
