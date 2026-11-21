@@ -27,10 +27,30 @@ open ../dashboard/report.html
 No credentials are required. The demo runs against point-in-time fixtures and
 writes every decision to `dashboard/data/`.
 
+## Live dashboard
+
+```bash
+python3 dashboard/serve.py          # http://127.0.0.1:8765/live.html
+```
+
+It reads `dashboard/data/state.json` and `decisions.jsonl` and renders NAV, cash,
+P&L, drawdown, gross exposure against the 40% rule, positions labelled
+verified/inferred, the equity curve, the risk limits, and every decision
+including the rejected ones.
+
+The Cloud Agents panel needs a Qoder Personal Access Token. Create one at
+<https://qoder.com/cloud/pat-keys>, put it in a `.env` at the repo root
+(`QODER_PAT=...`, already gitignored — see `.env.example`), and restart the
+server. Requests to `https://api.qoder.com/api/v1/cloud` are made server-side
+only; the token is never sent to the browser and never committed. Without a
+token the panel says so and the local panels keep working.
+
 ## Contents
 
 ```
 deck/index.html                 presentation deck (Qoder-generated)
+dashboard/live.html             live dashboard (served by dashboard/serve.py)
+dashboard/serve.py              local server; proxies Cloud Agents reads
 dashboard/report.html           decision report (competition profile)
 dashboard/report_guard.html     decision report (guard profile)
 dashboard/data/*.jsonl          append-only decision logs

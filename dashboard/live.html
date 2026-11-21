@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadGuard — Live Dashboard</title>
+<style>
+:root {
+  --bg:#0b1020; --panel:#141b31; --panel2:#1b2440; --text:#e8edf8; --muted:#9aa8c7;
+  --green:#38d39f; --red:#ff6b7a; --amber:#ffcc66; --blue:#6aa8ff; --line:#2a3658;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:linear-gradient(160deg,#080c18 0%,#0b1020 55%,#101a33 100%); color:var(--text);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif; }
+.wrap { max-width:1220px; margin:0 auto; padding:30px 22px 60px; }
+header { display:flex; justify-content:space-between; gap:20px; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom:18px; }
+h1 { margin:0; font-size:28px; letter-spacing:-.5px; }
+h2 { margin:30px 0 12px; font-size:18px; }
+h3 { margin:0 0 8px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+.sub { color:var(--muted); font-size:13px; margin-top:6px; }
+.badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11px; font-weight:700; border:1px solid var(--line); }
+.badge.ok { color:var(--green); border-color:#1d6b51; background:#0d2a22; }
+.badge.no { color:var(--red); border-color:#7a2b38; background:#2a1017; }
+.badge.warn { color:var(--amber); border-color:#715a22; background:#2a230f; }
+.badge.blue { color:var(--blue); border-color:#24457a; background:#0d1c33; }
+.grid { display:grid; gap:12px; }
+.kpis { grid-template-columns:repeat(5,1fr); margin-top:20px; }
+.card { background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line); border-radius:14px; padding:16px; }
+.kpi .label { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
+.kpi .value { font-size:23px; font-weight:750; margin-top:6px; letter-spacing:-.5px; }
+.kpi .foot { color:var(--muted); font-size:12px; margin-top:4px; }
+.pos { color:var(--green); } .neg { color:var(--red); } .warn-t { color:var(--amber); } .blue { color:var(--blue); }
+.two { grid-template-columns:1.3fr .7fr; }
+.table { width:100%; border-collapse:collapse; font-size:13px; }
+.table th { text-align:left; color:var(--muted); font-weight:600; padding:8px 10px; border-bottom:1px solid var(--line); }
+.table td { padding:9px 10px; border-bottom:1px solid #202a47; vertical-align:top; }
+.table td.note-cell { color:var(--muted); font-size:12px; min-width:220px; max-width:340px; }
+.table tr:last-child td { border-bottom:none; }
+.mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12px; }
+.decision { border-left:3px solid var(--line); padding:10px 12px; margin:10px 0; background:#0f1730; border-radius:0 10px 10px 0; }
+.decision.ok { border-left-color:var(--green); }
+.decision.no { border-left-color:var(--red); }
+.decision .top { display:flex; justify-content:space-between; gap:12px; }
+.decision .name { font-weight:700; font-size:14px; }
+.decision .why { color:var(--muted); font-size:13px; margin-top:5px; }
+.alert { border:1px solid #7a2b38; background:#2a1017; border-radius:12px; padding:14px 16px; margin-top:18px; font-size:13px; }
+.alert strong { color:var(--red); }
+.note { color:var(--muted); font-size:12px; }
+pre { background:#080d1a; border:1px solid var(--line); border-radius:10px; padding:12px; overflow:auto; font-size:12px; margin:0; }
+footer { margin-top:36px; border-top:1px solid var(--line); padding-top:14px; color:var(--muted); font-size:12px; }
+@media (max-width:900px) { .kpis { grid-template-columns:repeat(2,1fr); } .two { grid-template-columns:1fr; } header { flex-direction:column; align-items:flex-start; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <div class="badge blue">MOOMOO × QODER · PAPER TRADING AGENT</div>
+    <h1>LeadGuard — live dashboard</h1>
+    <div class="sub" id="asof">loading…</div>
+  </div>
+  <div class="sub" id="source"></div>
+</header>
+
+<div id="alert"></div>
+
+<div class="grid kpis" id="kpis"></div>
+
+<div class="grid two" style="margin-top:14px">
+  <div class="card">
+    <h3>Equity and drawdown</h3>
+    <div id="chart"></div>
+  </div>
+  <div class="card">
+    <h3>Risk limits</h3>
+    <div id="limits"></div>
+  </div>
+</div>
+
+<h2>Positions</h2>
+<div class="card"><table class="table" id="positions"></table></div>
+
+<h2>Decision log <span class="note" id="dcount"></span></h2>
+<div id="decisions"></div>
+
+<h2>Cloud Agents</h2>
+<div class="card" id="cloud"><span class="note">loading sessions…</span></div>
+
+<footer>
+  Simulated paper trading only. Not investment advice. Figures come from the
+  account reconciler and are labelled verified or inferred; the organisers'
+  backend records prevail.
+</footer>
+</div>
+
+<script>
+const money = (v, d = 2) => v == null ? "—" :
+  (v < 0 ? "-$" : "$") + Math.abs(v).toLocaleString(undefined, {minimumFractionDigits: d, maximumFractionDigits: d});
+const pct = v => v == null ? "—" : (v >= 0 ? "+" : "") + v.toFixed(2) + "%";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+async function getJSON(url) {
+  const r = await fetch(url, {cache: "no-store"});
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(body.error || r.statusText), {status: r.status, body});
+  return body;
+}
+
+function kpi(label, value, foot, cls = "") {
+  return `<div class="card kpi"><div class="label">${label}</div>
+    <div class="value ${cls}">${value}</div><div class="foot">${foot}</div></div>`;
+}
+
+function renderState(state) {
+  const acc = state.reported_account || state.account || {};
+  const limits = state.limits || {};
+  document.getElementById("asof").textContent =
+    `${acc.account_id || "account"} · as of ${acc.as_of || state.generated_at_utc || "unknown"}`;
+  const src = acc.source || "";
+  document.getElementById("source").innerHTML =
+    `<span class="badge ${/verified/i.test(src) ? "ok" : "warn"}">${esc(src.split(":")[0] || "source")}</span>`;
+
+  const gross = acc.gross_exposure ?? 0, nav = acc.nav ?? 0;
+  const grossPct = nav ? gross / nav * 100 : null;
+
+  document.getElementById("kpis").innerHTML = [
+    kpi("NAV", money(nav), `peak ${money(acc.peak_nav)}`),
+    kpi("Cash", money(acc.cash), `${acc.cash_pct != null ? acc.cash_pct.toFixed(1) + "% of NAV" : ""}`,
+        (acc.cash ?? 0) < 0 ? "neg" : ""),
+    kpi("Day P&L", money(acc.day_pnl), "unrealised not included", (acc.day_pnl ?? 0) < 0 ? "neg" : "pos"),
+    kpi("Drawdown", pct(acc.drawdown_pct), `soft ${limits.soft_stop_pct ?? "—"}% · kill ${limits.kill_switch_pct ?? "—"}%`,
+        (acc.drawdown_pct ?? 0) > (limits.soft_stop_pct ?? 99) ? "neg" : ""),
+    kpi("Gross exposure", grossPct == null ? "—" : grossPct.toFixed(0) + "%",
+        `${money(gross, 0)} · rule cap 40% per ticker`, grossPct > 40 ? "neg" : ""),
+  ].join("");
+
+  const alerts = [];
+  const shorts = (acc.positions || []).filter(p => p.is_short_stock);
+  if (shorts.length) {
+    alerts.push(`<strong>Short stock open:</strong> ${shorts.map(p => `${esc(p.symbol)} ${Math.abs(p.qty)} sh`).join(", ")}.
+      The handbook forbids holding more than 40% of assets in one ticker and allows forced
+      liquidation when liquidity is negative.`);
+  }
+  if ((acc.cash ?? 0) < 0) alerts.push(`<strong>Negative cash:</strong> ${money(acc.cash)}. Buying power may already be zero.`);
+  document.getElementById("alert").innerHTML =
+    alerts.length ? `<div class="alert">${alerts.join("<br>")}</div>` : "";
+
+  const rows = (acc.positions || []).map(p => `
+    <tr>
+      <td class="mono"><strong>${esc(p.symbol)}</strong></td>
+      <td>${esc(p.sec_type || "")}${p.strike ? " " + p.strike + (p.option_type || "") : ""}</td>
+      <td class="mono ${p.qty < 0 ? "neg" : ""}">${p.qty}</td>
+      <td class="mono">${p.last == null ? "—" : p.last}</td>
+      <td class="mono">${money(p.market_value, 0)}</td>
+      <td class="mono ${(p.unrealized_pnl ?? 0) < 0 ? "neg" : "pos"}">${money(p.unrealized_pnl, 0)}</td>
+      <td><span class="badge ${p.verified ? "ok" : "warn"}">${p.verified ? "verified" : "inferred"}</span></td>
+      <td class="note note-cell">${esc(p.note || "")}</td>
+    </tr>`).join("");
+  document.getElementById("positions").innerHTML =
+    `<tr><th>Symbol</th><th>Type</th><th>Qty</th><th>Last</th><th>Market value</th><th>Unrealised</th><th>State</th><th>Note</th></tr>` +
+    (rows || `<tr><td colspan="8" class="note">No positions reported.</td></tr>`);
+
+  document.getElementById("limits").innerHTML = `
+    <table class="table">
+      <tr><td>Soft stop</td><td class="mono">${limits.soft_stop_pct ?? "—"}%</td></tr>
+      <tr><td>Kill switch</td><td class="mono">${limits.kill_switch_pct ?? "—"}%</td></tr>
+      <tr><td>Max premium at risk / trade</td><td class="mono">${limits.max_premium_at_risk_pct ?? "—"}%</td></tr>
+      <tr><td>Max total open risk</td><td class="mono">${limits.max_total_open_risk_pct ?? "—"}%</td></tr>
+      <tr><td>Min cash</td><td class="mono">${limits.min_cash_pct ?? "—"}%</td></tr>
+      <tr><td>Daily loss limit</td><td class="mono">${limits.daily_loss_pct ?? "—"}%</td></tr>
+      <tr><td>Regime</td><td class="mono">${esc(state.market?.regime || state.regime || "—")}</td></tr>
+    </table>`;
+}
+
+function renderChart(decisions) {
+  const pts = decisions.filter(d => typeof d.nav === "number");
+  if (pts.length < 2) {
+    document.getElementById("chart").innerHTML =
+      `<p class="note">Only ${pts.length} logged value(s); the curve appears once the agent has logged at least two decisions.</p>`;
+    return;
+  }
+  const W = 640, H = 220, P = 30;
+  const navs = pts.map(d => d.nav), dds = pts.map(d => Math.abs(d.drawdown_pct || 0));
+  const lo = Math.min(...navs), hi = Math.max(...navs), span = (hi - lo) || 1;
+  const maxDD = Math.max(...dds, 1);
+  const x = i => P + i * (W - 2 * P) / (pts.length - 1);
+  const y = v => H - P - (v - lo) / span * (H - 2 * P);
+  const line = navs.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  const ddPath = dds.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${(H - P - v / maxDD * 50).toFixed(1)}`).join(" ");
+  document.getElementById("chart").innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="NAV and drawdown">
+      <line x1="${P}" y1="${H - P}" x2="${W - P}" y2="${H - P}" stroke="#2a3658"/>
+      <path d="${ddPath} L${x(pts.length - 1)},${H - P} L${x(0)},${H - P} Z" fill="#ff6b7a22" stroke="#ff6b7a" stroke-width="1.2"/>
+      <path d="${line}" fill="none" stroke="#6aa8ff" stroke-width="2"/>
+    </svg>
+    <div class="note">Blue: NAV (${money(lo, 0)} → ${money(hi, 0)}). Red: absolute drawdown, max ${maxDD.toFixed(2)}%.</div>`;
+}
+
+function renderDecisions(decisions) {
+  document.getElementById("dcount").textContent = `(${decisions.length} logged)`;
+  const html = decisions.slice().reverse().map(d => {
+    const action = d.proposal?.action || "";
+    const passthrough = action === "HOLD" || action === "HOLD_CASH" || action === "RECONCILE";
+    const ok = d.risk?.approved;
+    const cls = passthrough ? "" : (ok ? "ok" : "no");
+    const verdict = passthrough ? "NO TRADE" : (ok ? "APPROVED" : "REJECTED");
+    const blockers = (d.risk?.blockers || []).concat(d.risk?.warnings || []);
+    return `<div class="decision ${cls}">
+      <div class="top">
+        <span class="name">${esc(action || d.decision_id)} ${esc(d.proposal?.symbol || "")}</span>
+        <span class="badge ${passthrough ? "blue" : (ok ? "ok" : "no")}">${verdict}</span>
+      </div>
+      <div class="why"><span class="mono">${esc(d.decision_id)}</span> · NAV ${money(d.nav)} · ${esc(d.mode || "")} · executed: ${d.executed ? "yes" : "no"}</div>
+      <div class="why">${esc(d.proposal?.thesis || d.signal?.blockers?.join("; ") || "")}</div>
+      ${blockers.length ? `<div class="why">blocked: ${esc(blockers.slice(0, 6).join("; "))}</div>` : ""}
+    </div>`;
+  }).join("");
+  document.getElementById("decisions").innerHTML = html || `<p class="note">No decisions logged yet.</p>`;
+}
+
+async function renderCloud() {
+  const box = document.getElementById("cloud");
+  try {
+    const data = await getJSON("/api/cloud/sessions?limit=10");
+    const items = Array.isArray(data) ? data : (data.items || data.data || data.sessions || []);
+    if (!Array.isArray(items) || !items.length) {
+      box.innerHTML = `<pre>${esc(JSON.stringify(data, null, 2)).slice(0, 4000)}</pre>`;
+      return;
+    }
+    const rows = items.slice(0, 10).map(s => `
+      <tr>
+        <td class="mono">${esc(s.id || s.session_id || "")}</td>
+        <td>${esc(s.title || s.name || s.agent_id || "")}</td>
+        <td><span class="badge ${/complete|done/i.test(s.status || "") ? "ok" : "warn"}">${esc(s.status || s.state || "")}</span></td>
+        <td class="mono note">${esc(s.updated_at || s.created_at || "")}</td>
+      </tr>`).join("");
+    box.innerHTML = `<table class="table"><tr><th>Session</th><th>Agent</th><th>Status</th><th>Updated</th></tr>${rows}</table>`;
+  } catch (e) {
+    box.innerHTML = `<p class="note">Cloud panel unavailable: ${esc(e.message)}</p>
+      <p class="note">Create a token at https://qoder.com/cloud/pat-keys, put <span class="mono">QODER_PAT=...</span>
+      in the gitignored <span class="mono">.env</span> at the repo root, restart the server.</p>`;
+  }
+}
+
+(async function () {
+  try {
+    const [state, decisions] = await Promise.all([getJSON("/api/state"), getJSON("/api/decisions")]);
+    renderState(state);
+    renderChart(decisions);
+    renderDecisions(decisions);
+  } catch (e) {
+    document.getElementById("asof").textContent = "Failed to load local data: " + e.message;
+  }
+  renderCloud();
+})();
+</script>
+</body>
+</html>
