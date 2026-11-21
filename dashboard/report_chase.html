@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadGuard — Decision Report</title>
+<style>
+:root {
+  --bg:#0b1020; --panel:#141b31; --panel2:#1b2440; --text:#e8edf8; --muted:#9aa8c7;
+  --green:#38d39f; --red:#ff6b7a; --amber:#ffcc66; --blue:#6aa8ff; --line:#2a3658;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:linear-gradient(160deg,#080c18 0%,#0b1020 55%,#101a33 100%); color:var(--text);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif; }
+.wrap { max-width:1180px; margin:0 auto; padding:34px 22px 60px; }
+header { display:flex; justify-content:space-between; gap:20px; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom:20px; }
+h1 { margin:0; font-size:32px; letter-spacing:-.5px; }
+h2 { margin:32px 0 12px; font-size:20px; letter-spacing:-.2px; }
+h3 { margin:0 0 8px; font-size:14px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.08em; }
+.sub { color:var(--muted); margin-top:6px; }
+.badge { display:inline-block; padding:5px 10px; border-radius:999px; font-size:12px; font-weight:700; border:1px solid var(--line); }
+.badge.ok { color:var(--green); border-color:#1d6b51; background:#0d2a22; }
+.badge.no { color:var(--red); border-color:#7a2b38; background:#2a1017; }
+.badge.warn { color:var(--amber); border-color:#715a22; background:#2a230f; }
+.grid { display:grid; gap:14px; }
+.kpis { grid-template-columns:repeat(6,1fr); margin-top:22px; }
+.card { background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line); border-radius:14px; padding:16px; }
+.kpi .label { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+.kpi .value { font-size:24px; font-weight:750; margin-top:6px; letter-spacing:-.5px; }
+.kpi .foot { color:var(--muted); font-size:12px; margin-top:4px; }
+.pos { color:var(--green); } .neg { color:var(--red); } .warn { color:var(--amber); } .blue { color:var(--blue); }
+.two { grid-template-columns:1.25fr .75fr; }
+.three { grid-template-columns:repeat(3,1fr); }
+.table { width:100%; border-collapse:collapse; font-size:13px; }
+.table th { text-align:left; color:var(--muted); font-weight:600; padding:8px 10px; border-bottom:1px solid var(--line); }
+.table td { padding:9px 10px; border-bottom:1px solid #202a47; vertical-align:top; }
+.table tr:last-child td { border-bottom:none; }
+.mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12px; }
+.decision { border-left:3px solid var(--line); padding:10px 12px; margin:10px 0; background:#0f1730; border-radius:0 10px 10px 0; }
+.decision.ok { border-left-color:var(--green); }
+.decision.no { border-left-color:var(--red); }
+.decision.hold { border-left-color:var(--amber); }
+.decision .top { display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.decision .name { font-weight:700; }
+.decision .why { color:var(--muted); font-size:13px; margin-top:6px; }
+.chart { width:100%; height:auto; display:block; }
+.legend { color:var(--muted); font-size:12px; margin-top:8px; }
+.code { background:#080d1a; border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow:auto; font-size:12px; }
+.note { color:var(--muted); font-size:12px; }
+.fail { border-left:3px solid var(--red); padding-left:12px; margin:12px 0; }
+footer { margin-top:40px; border-top:1px solid var(--line); padding-top:16px; color:var(--muted); font-size:12px; }
+@media (max-width:900px) { .kpis { grid-template-columns:repeat(2,1fr); } .two,.three { grid-template-columns:1fr; } header { flex-direction:column; align-items:flex-start; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <div class="badge blue">MOOMOO × QODER · PAPER TRADING AGENT</div>
+    <h1>LeadGuard</h1>
+    <div class="sub">Post-crash capital preservation with defined-risk rebound. Decision report generated from the append-only log.</div>
+  </div>
+  <div style="text-align:right">
+    <div class="badge warn">NO NEW RISK</div>
+    <div class="sub mono">as of 2026-11-23T10:00:00-05:00</div>
+  </div>
+</header>
+
+<div class="grid kpis">
+  <div class="card kpi"><div class="label">NAV</div><div class="value">$158,740.37</div><div class="foot">initial $100,000</div></div>
+  <div class="card kpi"><div class="label">Total P&amp;L</div><div class="value pos">+58,740.37</div><div class="foot">+58.74%</div></div>
+  <div class="card kpi"><div class="label">Drawdown</div><div class="value ">0.00%</div><div class="foot">kill switch 12.00%</div></div>
+  <div class="card kpi"><div class="label">Cash</div><div class="value">100.0%</div><div class="foot">minimum 60%</div></div>
+  <div class="card kpi"><div class="label">Regime</div><div class="value">Panic</div><div class="foot">VIX 35.20</div></div>
+  <div class="card kpi"><div class="label">Latest action</div><div class="value">HOLD</div><div class="foot">no order submitted</div></div>
+</div>
+
+<h2>What the agent decided</h2>
+<div class="two grid">
+  <div class="card">
+    <div class="decision hold"><div class="top"><div class="name">Reconcile · RECONCILE</div><div class="badge warn">NO ORDER</div></div><div class="why">VIX 35.89 -&gt; panic · SPY 689.81 (-3.64%), QQQ 608.45 (-5.67%) · trend=down; breadth_proxy=+0.76pp</div></div><div class="decision ok"><div class="top"><div class="name">Bounce · BUY_CALL_SPREAD</div><div class="badge ok">APPROVED</div></div><div class="why">VIX 31.20 -&gt; high_vol · SPY 701.20 (+1.65%), QQQ 620.50 (+1.98%) · trend=down; breadth_proxy=-0.41pp</div></div><div class="decision ok"><div class="top"><div class="name">Breakdown · BUY_PUT_SPREAD</div><div class="badge ok">APPROVED</div></div><div class="why">VIX 39.50 -&gt; panic · SPY 682.40 (-1.07%), QQQ 600.10 (-1.37%) · trend=down; breadth_proxy=-0.25pp</div></div><div class="decision hold"><div class="top"><div class="name">Chop · HOLD</div><div class="badge warn">NO ORDER</div></div><div class="why">VIX 35.20 -&gt; panic · SPY 692.30 (+0.36%), QQQ 611.80 (+0.55%) · trend=down; breadth_proxy=-0.01pp</div></div>
+  </div>
+  <div class="card">
+    <h3>Risk gates on the latest proposal</h3>
+    <table class="table"><thead><tr><th>Gate</th><th>Result</th><th>Detail</th></tr></thead><tbody><tr><td class="mono">trade_proposal</td><td class="neg">BLOCK</td><td class="note">HOLD: no order to approve</td></tr></tbody></table>
+    
+  </div>
+</div>
+
+<h2>Account reconstruction</h2>
+<div class="two grid">
+  <div class="card">
+    <h3>Reported positions (unverified)</h3>
+    <table class="table"><thead><tr><th>Symbol</th><th>Qty</th><th>Value</th><th>Unrealized</th><th>Note</th></tr></thead><tbody><tr><td class="mono">NVDA</td><td>-2600</td><td>$-326,378.00</td><td class="pos">+122,122.00</td><td class="note">INFERRED: long 11-20 172.50 put was ITM and auto-exercised into a short stock position. Verify quantity and direction in the app before any order.</td></tr><tr><td class="mono">US.AMD261120C462500</td><td>3</td><td>$0.00</td><td class="neg">-2,770.00</td><td class="note">Expired OTM on 2026-11-20; screenshot showed cost 2770. Verify that it is gone.</td></tr></tbody></table>
+    <div class="note" style="margin-top:10px">The NVDA short is <b>inferred</b> from the ITM 11-20 put assignment; the AMD call is shown as expired. Verify both in the app before trading. This is why the first decision is RECONCILE, not a new trade.</div>
+  </div>
+  <div class="card">
+    <h3>Known P&amp;L attribution</h3>
+    <svg class="chart" viewBox="0 0 560 160" role="img" aria-label="P and L attribution"><text x="0" y="31" fill="#9aa8c7" font-size="12">NVDA put (inferred)</text><rect x="190" y="18" width="300.0" height="20" rx="4" fill="#38d39f" opacity=".85"/><text x="498.0" y="32" fill="#38d39f" font-size="12" text-anchor="start">+49,322</text><text x="0" y="77" fill="#9aa8c7" font-size="12">AMD call</text><rect x="173.1515348120514" y="64" width="16.848465187948584" height="20" rx="4" fill="#ff6b7a" opacity=".85"/><text x="165.1515348120514" y="78" fill="#ff6b7a" font-size="12" text-anchor="end">-2,770</text><text x="0" y="123" fill="#9aa8c7" font-size="12">Residual / other marks</text><rect x="190" y="110" width="74.13549734398443" height="20" rx="4" fill="#ffcc66" opacity=".85"/><text x="272.1354973439844" y="124" fill="#ffcc66" font-size="12" text-anchor="start">+12,188</text></svg>
+    <div class="note" style="margin-top:8px">NVDA put entry is inferred from the screenshot's +71.49% at a 45.50 mark. Residual includes marks and trades not visible in the screenshot.</div>
+  </div>
+</div>
+
+<h2>Risk budget</h2>
+<div class="card">
+  <svg class="chart" viewBox="0 0 900 120" role="img" aria-label="Risk budget"><rect x="90" y="42" width="760" height="14" rx="7" fill="#223055"/><rect x="90" y="42" width="0.0" height="14" rx="7" fill="#38d39f"/><line x1="90.0" y1="25" x2="90.0" y2="78" stroke="#38d39f" stroke-width="2"/><text x="90.0" y="98" fill="#38d39f" font-size="12" text-anchor="middle">0%</text><line x1="343.3333333333333" y1="25" x2="343.3333333333333" y2="78" stroke="#ffcc66" stroke-width="2"/><text x="343.3333333333333" y="98" fill="#ffcc66" font-size="12" text-anchor="middle">4% daily loss</text><line x1="596.6666666666666" y1="25" x2="596.6666666666666" y2="78" stroke="#ff9f43" stroke-width="2"/><text x="596.6666666666666" y="98" fill="#ff9f43" font-size="12" text-anchor="middle">8% soft stop</text><line x1="850.0" y1="25" x2="850.0" y2="78" stroke="#ff6b7a" stroke-width="2"/><text x="850.0" y="98" fill="#ff6b7a" font-size="12" text-anchor="middle">12% kill</text><text x="90" y="20" fill="#9aa8c7" font-size="12">Current drawdown 0.00% · day P&amp;L +0.00% of NAV</text></svg>
+  <div class="legend">Daily loss limit 4% · soft stop 8% · hard kill 12%. The agent stops opening new risk at 8% drawdown and flattens at 12%.</div>
+</div>
+
+<h2>What failed, and what changed</h2>
+<div class="card">
+  <div class="fail"><b>Holding a deep-ITM option to expiry.</b> The 11-20 172.50 put was auto-exercised after Friday's close, converting an option into a leveraged short stock position. The fix is a reconcile-first gate and a hard no-hold-to-expiry rule.</div>
+  <div class="fail"><b>Concentrated AI single-name risk.</b> NVDA fell 14% and AMD 13% on Friday. The new universe is SPY/QQQ/IWM only; NVDA and AMD are blocked until the account is verified flat.</div>
+  <div class="fail"><b>Lottery-ticket call.</b> AMD 462.50C cost 2,770 and expired worthless. The fix is a 5% max premium-at-risk budget (1.5% in guard) and a defined-risk spread, not a cheap OTM call.</div>
+  <div class="fail"><b>No pre-defined exit or reconciliation.</b> The account was not checked before expiry. The fix is a daily reconciliation step, a structured decision log, and a kill switch.</div>
+</div>
+
+<h2>How to run the package</h2>
+<div class="card">
+  <div class="code mono">cd agent<br>python3 -m leadguard demo<br># open ../dashboard/report.html<br><br># live read-only (after Moomoo CLI OAuth):<br>python3 -m leadguard live --mode dry_run</div>
+  <div class="note" style="margin-top:10px">Dry-run needs no credentials. Paper execution is blocked unless live option bid/ask replaces every placeholder price, <span class="mono">--confirm</span> is passed, and <span class="mono">LEADGUARD_I_UNDERSTAND_PAPER=1</span> is set.</div>
+</div>
+
+<footer>
+  Simulated results only; not investment advice. Some figures are inferred from user screenshots and are labelled as such. The organisers' backend records prevail. Competition rules: U.S.-listed stocks/ETFs/options only; options may be auto-exercised at expiry; system exploitation is prohibited.
+</footer>
+</div>
+</body>
+</html>

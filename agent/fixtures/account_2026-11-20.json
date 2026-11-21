@@ -1,0 +1,36 @@
+{
+  "account_id": "REPORTED_SCREENSHOT_2026-11-20",
+  "as_of": "2026-11-20T20:00:00-05:00",
+  "source": "User screenshots + inferred option assignment; VERIFY IN APP",
+  "nav": 158740.37,
+  "peak_nav": 158740.37,
+  "cash": 485118.37,
+  "day_pnl": 0.0,
+  "positions": [
+    {
+      "symbol": "NVDA",
+      "sec_type": "STOCK",
+      "qty": -2600,
+      "avg_cost": 172.5,
+      "last": 125.53,
+      "market_value": -326378.0,
+      "unrealized_pnl": 122122.0,
+      "verified": false,
+      "note": "INFERRED: long 11-20 172.50 put was ITM and auto-exercised into a short stock position. Verify quantity and direction in the app before any order."
+    },
+    {
+      "symbol": "US.AMD261120C462500",
+      "sec_type": "OPTION",
+      "qty": 3,
+      "avg_cost": 9.2333,
+      "last": 0.0,
+      "market_value": 0.0,
+      "unrealized_pnl": -2770.0,
+      "expiry": "2026-11-20",
+      "strike": 462.5,
+      "option_type": "CALL",
+      "verified": false,
+      "note": "Expired OTM on 2026-11-20; screenshot showed cost 2770. Verify that it is gone."
+    }
+  ]
+}

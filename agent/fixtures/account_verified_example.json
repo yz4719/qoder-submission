@@ -1,0 +1,10 @@
+{
+  "account_id": "EXAMPLE_AFTER_RECONCILE",
+  "as_of": "2026-11-23T09:45:00-05:00",
+  "source": "ILLUSTRATIVE: replace with the actual post-reconciliation account",
+  "nav": 158740.37,
+  "peak_nav": 158740.37,
+  "cash": 158740.37,
+  "day_pnl": 0.0,
+  "positions": []
+}

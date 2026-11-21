@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadGuard — Strategy Deck</title>
+<style>
+  :root{
+    --bg:#0b0d12; --panel:#12151d; --line:#232838; --text:#e7eaf3;
+    --muted:#8b93a8; --green:#48d597; --amber:#f2b134; --red:#ff6b6b;
+    --accent:#6ea8fe;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter",-apple-system,"Segoe UI",system-ui,sans-serif}
+  .deck{scroll-snap-type:y mandatory;overflow-y:auto;height:100vh}
+  .slide{
+    scroll-snap-align:start;min-height:100vh;padding:64px 72px;
+    display:flex;flex-direction:column;justify-content:center;
+    border-bottom:1px solid var(--line);position:relative;
+  }
+  .kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+  h1{font-size:64px;line-height:1.05;margin:0 0 18px;letter-spacing:-.03em}
+  h2{font-size:40px;line-height:1.15;margin:0 0 26px;letter-spacing:-.02em}
+  h3{font-size:16px;margin:0 0 10px;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+  p,li{font-size:18px;line-height:1.55;color:#c6ccdb;margin:0 0 12px}
+  .lead{font-size:24px;color:var(--text);max-width:900px}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:18px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .card .big{font-size:32px;font-weight:700;letter-spacing:-.02em}
+  .card .sub{font-size:13px;color:var(--muted);margin-top:6px}
+  .green{color:var(--green)} .amber{color:var(--amber)} .red{color:var(--red)} .accent{color:var(--accent)}
+  .mono{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:16px}
+  th{color:var(--muted);font-weight:500;text-align:left;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--line)}
+  td{padding:12px;border-bottom:1px solid var(--line);color:#d4d9e6}
+  .tag{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line)}
+  .tag.ok{color:var(--green);border-color:#1f5c45;background:#0f2a21}
+  .tag.no{color:var(--amber);border-color:#5c4a1f;background:#2a2410}
+  .tag.bad{color:var(--red);border-color:#5c2020;background:#2a1010}
+  .bar{height:10px;border-radius:6px;background:#1a1f2b;overflow:hidden;margin:8px 0 4px}
+  .bar i{display:block;height:100%;border-radius:6px}
+  .foot{position:absolute;left:72px;right:72px;bottom:28px;display:flex;justify-content:space-between;font-size:12px;color:#5d6478}
+  .flow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .flow .step{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px}
+  .flow .arrow{color:var(--muted)}
+  ul{margin:0;padding-left:22px}
+  .two-col{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:start}
+  .note{font-size:13px;color:var(--muted);margin-top:14px}
+  .hint{position:fixed;right:24px;bottom:18px;font-size:12px;color:#4c5365}
+  @media (max-width:900px){
+    .slide{padding:40px 28px}
+    h1{font-size:44px} h2{font-size:30px}
+    .two-col,.g2,.g3,.g4{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <div class="kicker">Moomoo × Qoder · AI Trading Agent Challenge</div>
+    <h1>LeadGuard</h1>
+    <p class="lead">Protect a 58.7% lead, then buy one confirmed, defined-risk rebound.
+    Rule-based execution, LLM research, and a log that can be audited line by line.</p>
+    <div class="grid g4" style="margin-top:36px">
+      <div class="card"><div class="label">NAV</div><div class="big">$158,740</div><div class="sub">from $100,000</div></div>
+      <div class="card"><div class="label">Return</div><div class="big green">+58.74%</div><div class="sub">one NVDA put trade</div></div>
+      <div class="card"><div class="label">Max open risk</div><div class="big">10%</div><div class="sub">competition profile</div></div>
+      <div class="card"><div class="label">Kill switch</div><div class="big amber">10%</div><div class="sub">flatten, no exceptions</div></div>
+    </div>
+    <div class="foot"><span>LeadGuard · 21 Nov 2026</span><span>Simulated results only · not investment advice</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">01 · The situation</div>
+    <h2>One great trade, one unhedged problem</h2>
+    <div class="two-col">
+      <div>
+        <p>Friday 20 Nov was a broad risk-off session: S&amp;P 500 −3.7%, NDX −5.6%, VIX +26% to 35.89, NVDA −14%, AMD −13%.</p>
+        <p>The account made <b class="green">+$58,740</b> on an NVDA 172.50 put. But the put was ITM at expiry and was <b>auto-exercised</b> into an inferred short of ~2,600 NVDA shares.</p>
+        <p>The AMD 462.50 call expired worthless: <b class="red">−$2,770</b>. Two lessons, both now hard rules.</p>
+      </div>
+      <div class="card">
+        <h3>Monday, before any trade</h3>
+        <ul>
+          <li>Buy to cover the NVDA short (unbounded risk).</li>
+          <li>Confirm the expired AMD call is gone.</li>
+          <li>Verify the settled position list and cash.</li>
+        </ul>
+        <p class="note">Until this is done, the agent returns <span class="mono">RECONCILE</span> for every idea. No exceptions.</p>
+      </div>
+    </div>
+    <div class="foot"><span>02</span><span>Verified closes: SPY 689.81 · QQQ 608.45 · IWM 256.61 · VIX 35.89</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">02 · Thesis</div>
+    <h2>After a VIX spike, wait for the tape to pick a side</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Bounce</h3><p>Most common path when there is no credit event. Needs SPY ≥ 695, QQQ ≥ 612, VIX ≤ 34.</p><span class="tag ok">Call spread</span></div>
+      <div class="card"><h3>Breakdown</h3><p>Continuation lower. Needs SPY ≤ 686.75, QQQ ≤ 606.23, VIX ≥ 34.</p><span class="tag ok">Put spread</span></div>
+      <div class="card"><h3>Chop</h3><p>No confirmation. The agent holds and keeps the lead.</p><span class="tag no">Cash</span></div>
+    </div>
+    <p class="lead" style="margin-top:30px">The edge is not a forecast. It is being paid for patience: most of the week's return comes from one or two already-confirmed moves, and the rest from not giving the lead back.</p>
+    <div class="foot"><span>03</span><span>Triggers are deterministic, in config/competition.json</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">03 · Structure</div>
+    <h2>Defined risk, or no trade</h2>
+    <div class="two-col">
+      <div>
+        <table>
+          <tr><th>Scenario</th><th>Structure</th><th>Size</th><th>Max loss</th></tr>
+          <tr><td>Bounce</td><td class="mono">SPY 18-Dec 700/720 C</td><td>9</td><td>$7,200 · 4.5%</td></tr>
+          <tr><td>Breakdown</td><td class="mono">SPY 18-Dec 680/660 P</td><td>8</td><td>$7,200 · 4.5%</td></tr>
+        </table>
+        <p class="note">Debits are illustrative fixtures ($8.00 / $9.00). Live bid/ask must replace every placeholder before execution.</p>
+      </div>
+      <div>
+        <h3>Why a vertical</h3>
+        <ul>
+          <li>Maximum loss known before entry.</li>
+          <li>No assignment: closed before expiry by rule.</li>
+          <li>No naked short exposure, no margin call.</li>
+          <li>Dec-18 expiry: survives a headline, avoids a slow theta bleed.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span>04</span><span>qty = min(12, floor(NAV × 5% ÷ (debit × 100)))</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">04 · Risk</div>
+    <h2>The ladder is the strategy</h2>
+    <div class="grid g2">
+      <div class="card">
+        <table>
+          <tr><th>Level</th><th>Trigger</th><th>Response</th></tr>
+          <tr><td>Daily loss</td><td>−3%</td><td>stop new risk</td></tr>
+          <tr><td>Soft stop</td><td>−6% from peak</td><td>manage exits only</td></tr>
+          <tr><td>Kill switch</td><td>−10% from peak</td><td>flatten all</td></tr>
+          <tr><td>Calendar</td><td>Wed 13:00 ET</td><td>no new positions</td></tr>
+          <tr><td>Final</td><td>Fri 12:30 ET</td><td>flat</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>19 deterministic gates</h3>
+        <p class="mono" style="line-height:1.9;color:#aab3c8">
+        reconciled · no_short_stock · no_expiring_options<br>
+        kill_switch · soft_stop · daily_loss · blocked_symbol<br>
+        gross_exposure · single_name · premium_at_risk · total_open_risk<br>
+        open_positions · new_trades_today · cash_buffer<br>
+        days_to_expiry · bid_ask · limit_only<br>
+        entry_window · final_flatten
+        </p>
+        <p class="note">The LLM cannot edit a gate result. A failed hard gate means no order exists.</p>
+      </div>
+    </div>
+    <div class="foot"><span>05</span><span>Guard 1.5% · competition 5% · chase 15% (not 40%) — same hard gates</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">05 · Agent design</div>
+    <h2>Research is generative. Execution is not.</h2>
+    <div class="flow" style="margin:8px 0 26px">
+      <div class="step">Snapshot<br><span class="muted">quotes + account</span></div><span class="arrow">→</span>
+      <div class="step">Reconcile gate<br><span class="muted">verified, no short</span></div><span class="arrow">→</span>
+      <div class="step">Signal<br><span class="muted">long / short / flat</span></div><span class="arrow">→</span>
+      <div class="step">Sizing<br><span class="muted">budget ÷ debit</span></div><span class="arrow">→</span>
+      <div class="step">19 gates<br><span class="muted">veto</span></div><span class="arrow">→</span>
+      <div class="step">Log + report<br><span class="muted">JSONL → HTML</span></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>Local Qoder</h3><p>Built and runs the package: <span class="mono">demo</span>, <span class="mono">run</span>, <span class="mono">live --mode dry_run</span>, <span class="mono">report</span>. Stdlib-only Python, 9 unit tests.</p></div>
+      <div class="card"><h3>Cloud Agents</h3><p>Coordinator + Researcher + Risk Auditor + Executor + Advisor. The Auditor is a hard veto; the Executor runs dry-run first and needs human confirmation.</p></div>
+    </div>
+    <div class="foot"><span>06</span><span>Prompts: agent/prompts/ · Skill: qoder/skill/leadguard/SKILL.md</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">06 · Decisions</div>
+    <h2>Four scenarios, one verdict each</h2>
+    <table>
+      <tr><th>Decision</th><th>Scenario</th><th>Action</th><th>Gate</th><th>Why</th></tr>
+      <tr><td class="mono">…-reconcile</td><td>Reported account</td><td>RECONCILE</td><td><span class="tag bad">blocked</span></td><td>Unverified, short stock, expired option</td></tr>
+      <tr><td class="mono">…-bounce</td><td>SPY 701.20 · VIX 31.20</td><td>BUY_CALL_SPREAD</td><td><span class="tag ok">approved</span></td><td>All three long confirmations met</td></tr>
+      <tr><td class="mono">…-breakdown</td><td>SPY 682.40 · VIX 39.50</td><td>BUY_PUT_SPREAD</td><td><span class="tag ok">approved</span></td><td>Breakdown confirmed, stress persists</td></tr>
+      <tr><td class="mono">…-chop</td><td>SPY 692.30 · VIX 35.20</td><td>HOLD</td><td><span class="tag no">no order</span></td><td>No confirmation; cash is a position</td></tr>
+    </table>
+    <p class="note">Rejected by design: NVDA calls, another AMD lottery ticket, holding to expiry, naked puts, 0DTE, 40% sizing.</p>
+    <div class="foot"><span>07</span><span>Every decision carries its inputs, reasons and gate results</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">07 · What worked, what failed</div>
+    <h2>Four failures that became four rules</h2>
+    <div class="grid g2">
+      <div class="card"><h3 class="red">Failed</h3><ul>
+        <li>Holding a deep-ITM option to expiry → assignment into short stock.</li>
+        <li>Concentrated AI single names → −14% / −13% in one day.</li>
+        <li>Cheap OTM call → $2,770 to zero.</li>
+        <li>No reconciliation before expiry → the account was unknown at the worst time.</li>
+      </ul></div>
+      <div class="card"><h3 class="green">Changed</h3><ul>
+        <li>Reconcile-first gate; no option held into expiry.</li>
+        <li>Universe restricted to SPY/QQQ/IWM; NVDA/AMD blocked.</li>
+        <li>Premium budget buys defined-risk spreads only.</li>
+        <li>Daily reconcile, append-only log, kill switch.</li>
+      </ul></div>
+    </div>
+    <div class="foot"><span>08</span><span>Each rule maps to a gate name in risk.py</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">08 · Reusability</div>
+    <h2>Change JSON, not code</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Run it</h3><p class="mono">cd agent<br>python3 -m leadguard demo<br>open ../dashboard/report.html</p></div>
+      <div class="card"><h3>Test it</h3><p class="mono">python3 -m unittest discover -s tests -v<br><span class="green">9 tests pass</span></p></div>
+      <div class="card"><h3>Adapt it</h3><p>Swap universe, triggers, caps and calendar in <span class="mono">config/*.json</span>. The gates and log format stay identical.</p></div>
+    </div>
+    <p class="lead" style="margin-top:28px">A judge can reproduce every decision from the fixtures and the JSONL log without any credentials.</p>
+    <div class="foot"><span>09</span><span>Package: agent/ · Docs: docs/ · Report: dashboard/report.html</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">09 · Compliance</div>
+    <h2>Rules followed on purpose</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Platform</h3><ul>
+        <li>US-listed stocks, ETFs, options only.</li>
+        <li>No platform-bug or latency exploitation.</li>
+        <li>One account, no resets.</li>
+        <li>Option fees ≈ $0.97/contract, min $1.99/order.</li>
+      </ul></div>
+      <div class="card"><h3>Submission</h3><ul>
+        <li>Deck, runnable package, log, results, demo.</li>
+        <li>Deadline 30 Nov 2026 23:59 SGT.</li>
+        <li>Re-check the event's submit link before then.</li>
+        <li>Simulated results; organisers' records prevail.</li>
+      </ul></div>
+    </div>
+    <div class="foot"><span>10</span><span>Not investment advice</span></div>
+  </section>
+
+</div>
+<div class="hint">↓ / ↑ to navigate</div>
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  addEventListener('keydown',e=>{
+    if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){e.preventDefault();i=Math.min(i+1,slides.length-1);slides[i].scrollIntoView({behavior:'smooth'});}
+    if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();i=Math.max(i-1,0);slides[i].scrollIntoView({behavior:'smooth'});}
+  });
+</script>
+</body>
+</html>

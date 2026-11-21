@@ -1,0 +1,97 @@
+{
+  "SPY": {
+    "close": 682.4,
+    "prev_close": 689.81,
+    "day_high": 690.0,
+    "day_low": 681.0,
+    "high_20d": 775.64,
+    "low_20d": 686.75,
+    "sma20": 747.81,
+    "sma50": 760.18,
+    "rsi14": 25.0,
+    "atr14": 16.07,
+    "realized_vol20_annual_pct": 27.7,
+    "as_of": "2026-11-23"
+  },
+  "QQQ": {
+    "close": 600.1,
+    "prev_close": 608.45,
+    "day_high": 609.0,
+    "day_low": 599.0,
+    "high_20d": 726.14,
+    "low_20d": 606.23,
+    "sma20": 678.53,
+    "sma50": 710.96,
+    "rsi14": 27.0,
+    "atr14": 21.13,
+    "realized_vol20_annual_pct": 42.2,
+    "as_of": "2026-11-23"
+  },
+  "IWM": {
+    "close": 253.2,
+    "prev_close": 256.61,
+    "day_high": 256.0,
+    "day_low": 252.5,
+    "high_20d": 286.17,
+    "low_20d": 256.32,
+    "sma20": 276.23,
+    "sma50": 278.26,
+    "rsi14": 28.0,
+    "atr14": 6.28,
+    "realized_vol20_annual_pct": 29.0,
+    "as_of": "2026-11-23"
+  },
+  "VIX": {
+    "close": 39.5,
+    "prev_close": 35.89,
+    "day_high": 40.5,
+    "day_low": 38.0,
+    "high_20d": 40.03,
+    "low_20d": 16.21,
+    "sma20": 22.57,
+    "sma50": 18.81,
+    "rsi14": 70.0,
+    "atr14": 5.95,
+    "realized_vol20_annual_pct": 273.6,
+    "as_of": "2026-11-23"
+  },
+  "NVDA": {
+    "close": 128.0,
+    "prev_close": 125.53,
+    "day_high": 129.0,
+    "day_low": 126.5,
+    "high_20d": 219.99,
+    "low_20d": 124.5,
+    "sma20": 181.46,
+    "sma50": 207.0,
+    "rsi14": 20.0,
+    "atr14": 12.84,
+    "realized_vol20_annual_pct": 81.0,
+    "as_of": "2026-11-23"
+  },
+  "AMD": {
+    "close": 430.0,
+    "prev_close": 424.39,
+    "day_high": 433.0,
+    "day_low": 425.0,
+    "high_20d": 594.0,
+    "low_20d": 402.1,
+    "sma20": 509.08,
+    "sma50": 553.1,
+    "rsi14": 47.0,
+    "atr14": 52.59,
+    "realized_vol20_annual_pct": 135.1,
+    "as_of": "2026-11-23"
+  },
+  "_meta": {
+    "as_of": "2026-11-23T10:00:00-05:00",
+    "scenario": "breakdown_confirmation",
+    "note": "ILLUSTRATIVE scenario for the decision-log demo; not market data. Option debits are assumptions, not live quotes.",
+    "options": {
+      "SPY_CALL_700_720": 9.0,
+      "SPY_CALL_BID_ASK_PCT": 5.0,
+      "SPY_PUT_680_660": 9.0,
+      "SPY_PUT_BID_ASK_PCT": 6.0
+    }
+  }
+}

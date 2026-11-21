@@ -1,0 +1,1748 @@
+{
+  "account": {
+    "account_id": "EXAMPLE_AFTER_RECONCILE",
+    "as_of": "2026-11-23T09:45:00-05:00",
+    "cash": 158740.37,
+    "cash_pct": 100.0,
+    "day_pnl": 0.0,
+    "drawdown_pct": 0.0,
+    "gross_exposure": 0,
+    "nav": 158740.37,
+    "peak_nav": 158740.37,
+    "positions": [],
+    "source": "ILLUSTRATIVE: replace with the actual post-reconciliation account"
+  },
+  "decision": {
+    "account_id": "EXAMPLE_AFTER_RECONCILE",
+    "agent": "leadguard-orchestrator",
+    "decision_id": "LG-20261121T015032Z-chop",
+    "drawdown_pct": 0.0,
+    "executed": false,
+    "mode": "dry_run",
+    "nav": 158740.37,
+    "note": "ILLUSTRATIVE chop scenario; cash is the correct position.",
+    "orders": [],
+    "peak_nav": 158740.37,
+    "proposal": {
+      "action": "HOLD",
+      "bid_ask_pct": null,
+      "close_only": false,
+      "dte": null,
+      "expiry": null,
+      "invalidation": "re-evaluate after the first 30 minutes of the next session",
+      "legs": [],
+      "max_debit": null,
+      "max_loss": 0.0,
+      "reason": "No confirmed edge. Preserve capital and wait.",
+      "risk_pct": 0.0,
+      "symbol": "CASH",
+      "target_debit": null,
+      "thesis": "The account already has a large realized edge; the marginal trade must clear a high bar."
+    },
+    "regime": "panic",
+    "risk": {
+      "approved": false,
+      "blockers": [],
+      "checks": [
+        {
+          "detail": "HOLD: no order to approve",
+          "hard": false,
+          "name": "trade_proposal",
+          "passed": false
+        }
+      ],
+      "warnings": [
+        "trade_proposal: HOLD: no order to approve"
+      ]
+    },
+    "signal": {
+      "bias": "flat",
+      "blockers": [],
+      "invalidation": "re-evaluate after the first 30 minutes of the next session",
+      "reasons": [
+        "VIX 35.20 -> panic",
+        "SPY 692.30 (+0.36%), QQQ 611.80 (+0.55%)",
+        "trend=down; breadth_proxy=-0.01pp",
+        "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+      ],
+      "regime": "panic",
+      "score": 0
+    },
+    "ts_et": "2026-11-23T10:00:00-05:00",
+    "ts_utc": "2026-11-21T01:50:32.860625+00:00"
+  },
+  "demo_runs": [
+    {
+      "action": "RECONCILE",
+      "approved": false,
+      "blockers": [],
+      "decision_id": "LG-20261121T015032Z-reconcile",
+      "nav": 158740.37,
+      "reasons": [
+        "VIX 35.89 -> panic",
+        "SPY 689.81 (-3.64%), QQQ 608.45 (-5.67%)",
+        "trend=down; breadth_proxy=+0.76pp",
+        "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+      ],
+      "scenario": "reconcile",
+      "signal_bias": "flat"
+    },
+    {
+      "action": "BUY_CALL_SPREAD",
+      "approved": true,
+      "blockers": [],
+      "decision_id": "LG-20261121T015032Z-bounce",
+      "nav": 158740.37,
+      "reasons": [
+        "VIX 31.20 -> high_vol",
+        "SPY 701.20 (+1.65%), QQQ 620.50 (+1.98%)",
+        "trend=down; breadth_proxy=-0.41pp",
+        "long confirmation: SPY >= 695.00, QQQ >= 612.00, VIX <= 34.00"
+      ],
+      "scenario": "bounce",
+      "signal_bias": "long"
+    },
+    {
+      "action": "BUY_PUT_SPREAD",
+      "approved": true,
+      "blockers": [],
+      "decision_id": "LG-20261121T015032Z-breakdown",
+      "nav": 158740.37,
+      "reasons": [
+        "VIX 39.50 -> panic",
+        "SPY 682.40 (-1.07%), QQQ 600.10 (-1.37%)",
+        "trend=down; breadth_proxy=-0.25pp",
+        "breakdown confirmation: SPY <= 686.75, QQQ <= 606.23, VIX >= 34.00"
+      ],
+      "scenario": "breakdown",
+      "signal_bias": "short"
+    },
+    {
+      "action": "HOLD",
+      "approved": false,
+      "blockers": [],
+      "decision_id": "LG-20261121T015032Z-chop",
+      "nav": 158740.37,
+      "reasons": [
+        "VIX 35.20 -> panic",
+        "SPY 692.30 (+0.36%), QQQ 611.80 (+0.55%)",
+        "trend=down; breadth_proxy=-0.01pp",
+        "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+      ],
+      "scenario": "chop",
+      "signal_bias": "flat"
+    }
+  ],
+  "demo_states": [
+    {
+      "account": {
+        "account_id": "REPORTED_SCREENSHOT_2026-11-20",
+        "as_of": "2026-11-20T20:00:00-05:00",
+        "cash": 485118.37,
+        "cash_pct": 305.6,
+        "day_pnl": 0.0,
+        "drawdown_pct": 0.0,
+        "gross_exposure": 326378.0,
+        "nav": 158740.37,
+        "peak_nav": 158740.37,
+        "positions": [
+          {
+            "avg_cost": 172.5,
+            "days_to_expiry": null,
+            "expiry": null,
+            "is_short_stock": true,
+            "last": 125.53,
+            "market_value": -326378.0,
+            "note": "INFERRED: long 11-20 172.50 put was ITM and auto-exercised into a short stock position. Verify quantity and direction in the app before any order.",
+            "option_type": null,
+            "qty": -2600.0,
+            "sec_type": "STOCK",
+            "strike": null,
+            "symbol": "NVDA",
+            "unrealized_pnl": 122122.0,
+            "verified": false
+          },
+          {
+            "avg_cost": 9.2333,
+            "days_to_expiry": -1,
+            "expiry": "2026-11-20",
+            "is_short_stock": false,
+            "last": 0.0,
+            "market_value": 0.0,
+            "note": "Expired OTM on 2026-11-20; screenshot showed cost 2770. Verify that it is gone.",
+            "option_type": "CALL",
+            "qty": 3.0,
+            "sec_type": "OPTION",
+            "strike": 462.5,
+            "symbol": "US.AMD261120C462500",
+            "unrealized_pnl": -2770.0,
+            "verified": false
+          }
+        ],
+        "source": "User screenshots + inferred option assignment; VERIFY IN APP"
+      },
+      "decision": {
+        "account_id": "REPORTED_SCREENSHOT_2026-11-20",
+        "agent": "leadguard-orchestrator",
+        "decision_id": "LG-20261121T015032Z-reconcile",
+        "drawdown_pct": 0.0,
+        "executed": false,
+        "mode": "dry_run",
+        "nav": 158740.37,
+        "note": "Unverified post-expiry account: the only correct action is to reconcile.",
+        "orders": [],
+        "peak_nav": 158740.37,
+        "proposal": {
+          "action": "RECONCILE",
+          "bid_ask_pct": null,
+          "close_only": true,
+          "dte": null,
+          "expiry": null,
+          "invalidation": "A verified flat/reconciled position list is required.",
+          "legs": [],
+          "max_debit": null,
+          "max_loss": 0.0,
+          "reason": "unverified positions: NVDA, US.AMD261120C462500; short stock must be covered first: NVDA; option at or near expiry: US.AMD261120C462500",
+          "risk_pct": 0.0,
+          "symbol": "PORTFOLIO",
+          "target_debit": null,
+          "thesis": "Reconcile the account before any new risk."
+        },
+        "regime": "panic",
+        "risk": {
+          "approved": false,
+          "blockers": [],
+          "checks": [
+            {
+              "detail": "RECONCILE: no order to approve",
+              "hard": false,
+              "name": "trade_proposal",
+              "passed": false
+            }
+          ],
+          "warnings": [
+            "trade_proposal: RECONCILE: no order to approve"
+          ]
+        },
+        "signal": {
+          "bias": "flat",
+          "blockers": [
+            "unverified positions: NVDA, US.AMD261120C462500",
+            "short stock must be covered first: NVDA",
+            "option at or near expiry: US.AMD261120C462500"
+          ],
+          "invalidation": "re-evaluate after the first 30 minutes of the next session",
+          "reasons": [
+            "VIX 35.89 -> panic",
+            "SPY 689.81 (-3.64%), QQQ 608.45 (-5.67%)",
+            "trend=down; breadth_proxy=+0.76pp",
+            "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+          ],
+          "regime": "panic",
+          "score": 0
+        },
+        "ts_et": "2026-11-23T09:50:00-05:00",
+        "ts_utc": "2026-11-21T01:50:32.857386+00:00"
+      },
+      "generated_at_utc": "2026-11-21T01:50:32.857386+00:00",
+      "limits": {
+        "daily_loss_pct": 2.0,
+        "kill_switch_pct": 8.0,
+        "max_premium_at_risk_pct": 1.5,
+        "max_total_open_risk_pct": 4.0,
+        "min_cash_pct": 80.0,
+        "soft_stop_pct": 5.0
+      },
+      "market": {
+        "as_of": "2026-11-20",
+        "breadth_proxy_pp": 0.76,
+        "meta": {
+          "as_of": "2026-11-20",
+          "note": "Actual Nov 20, 2026 closes from Yahoo Finance. Option prices are not included; do not treat the spread debit as a live quote.",
+          "scenario": "actual_close"
+        },
+        "quotes": {
+          "AMD": {
+            "as_of": "2026-11-20",
+            "atr14": 52.59,
+            "change_pct": -13.25,
+            "close": 424.39,
+            "day_high": 474.79,
+            "day_low": 418.76,
+            "high_20d": 594.0,
+            "low_20d": 402.1,
+            "prev_close": 489.19,
+            "realized_vol20_annual_pct": 135.1,
+            "rsi14": 45.8,
+            "sma20": 509.08,
+            "sma50": 553.1,
+            "symbol": "AMD"
+          },
+          "IWM": {
+            "as_of": "2026-11-20",
+            "atr14": 6.28,
+            "change_pct": -2.88,
+            "close": 256.61,
+            "day_high": 265.85,
+            "day_low": 256.32,
+            "high_20d": 286.17,
+            "low_20d": 256.32,
+            "prev_close": 264.22,
+            "realized_vol20_annual_pct": 29.0,
+            "rsi14": 32.0,
+            "sma20": 276.23,
+            "sma50": 278.26,
+            "symbol": "IWM"
+          },
+          "NVDA": {
+            "as_of": "2026-11-20",
+            "atr14": 12.84,
+            "change_pct": -14.01,
+            "close": 125.53,
+            "day_high": 142.41,
+            "day_low": 124.5,
+            "high_20d": 219.99,
+            "low_20d": 124.5,
+            "prev_close": 145.98,
+            "realized_vol20_annual_pct": 81.0,
+            "rsi14": 13.7,
+            "sma20": 181.46,
+            "sma50": 207.0,
+            "symbol": "NVDA"
+          },
+          "QQQ": {
+            "as_of": "2026-11-20",
+            "atr14": 21.13,
+            "change_pct": -5.67,
+            "close": 608.45,
+            "day_high": 643.28,
+            "day_low": 606.23,
+            "high_20d": 726.14,
+            "low_20d": 606.23,
+            "prev_close": 645.04,
+            "realized_vol20_annual_pct": 42.2,
+            "rsi14": 31.4,
+            "sma20": 678.53,
+            "sma50": 710.96,
+            "symbol": "QQQ"
+          },
+          "SPY": {
+            "as_of": "2026-11-20",
+            "atr14": 16.07,
+            "change_pct": -3.64,
+            "close": 689.81,
+            "day_high": 718.29,
+            "day_low": 686.75,
+            "high_20d": 775.64,
+            "low_20d": 686.75,
+            "prev_close": 715.87,
+            "realized_vol20_annual_pct": 27.7,
+            "rsi14": 29.4,
+            "sma20": 747.81,
+            "sma50": 760.18,
+            "symbol": "SPY"
+          },
+          "VIX": {
+            "as_of": "2026-11-20",
+            "atr14": 5.95,
+            "change_pct": 26.2,
+            "close": 35.89,
+            "day_high": 40.03,
+            "day_low": 26.94,
+            "high_20d": 40.03,
+            "low_20d": 16.21,
+            "prev_close": 28.44,
+            "realized_vol20_annual_pct": 273.6,
+            "rsi14": 66.1,
+            "sma20": 22.57,
+            "sma50": 18.81,
+            "symbol": "VIX"
+          }
+        },
+        "regime": "panic",
+        "trend": "down",
+        "vix": 35.89
+      },
+      "mode": "dry_run",
+      "risk": {
+        "approved": false,
+        "blockers": [],
+        "checks": [
+          {
+            "detail": "RECONCILE: no order to approve",
+            "hard": false,
+            "name": "trade_proposal",
+            "passed": false
+          }
+        ],
+        "warnings": [
+          "trade_proposal: RECONCILE: no order to approve"
+        ]
+      },
+      "scenario": "reconcile",
+      "signal": {
+        "bias": "flat",
+        "blockers": [
+          "unverified positions: NVDA, US.AMD261120C462500",
+          "short stock must be covered first: NVDA",
+          "option at or near expiry: US.AMD261120C462500"
+        ],
+        "invalidation": "re-evaluate after the first 30 minutes of the next session",
+        "reasons": [
+          "VIX 35.89 -> panic",
+          "SPY 689.81 (-3.64%), QQQ 608.45 (-5.67%)",
+          "trend=down; breadth_proxy=+0.76pp",
+          "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+        ],
+        "regime": "panic",
+        "score": 0
+      }
+    },
+    {
+      "account": {
+        "account_id": "EXAMPLE_AFTER_RECONCILE",
+        "as_of": "2026-11-23T09:45:00-05:00",
+        "cash": 158740.37,
+        "cash_pct": 100.0,
+        "day_pnl": 0.0,
+        "drawdown_pct": 0.0,
+        "gross_exposure": 0,
+        "nav": 158740.37,
+        "peak_nav": 158740.37,
+        "positions": [],
+        "source": "ILLUSTRATIVE: replace with the actual post-reconciliation account"
+      },
+      "decision": {
+        "account_id": "EXAMPLE_AFTER_RECONCILE",
+        "agent": "leadguard-orchestrator",
+        "decision_id": "LG-20261121T015032Z-bounce",
+        "drawdown_pct": 0.0,
+        "executed": false,
+        "mode": "dry_run",
+        "nav": 158740.37,
+        "note": "ILLUSTRATIVE bounce scenario; option debit is an assumption.",
+        "orders": [],
+        "peak_nav": 158740.37,
+        "proposal": {
+          "action": "BUY_CALL_SPREAD",
+          "bid_ask_pct": 4.0,
+          "close_only": false,
+          "dte": 25,
+          "expiry": "2026-12-18",
+          "invalidation": "SPY closes below 690.20 or VIX > 40; close the spread at -50% of debit, whichever comes first",
+          "legs": [
+            {
+              "limit_price": 8.0,
+              "note": "net debit; replace with live ask",
+              "qty": 2,
+              "sec_type": "OPTION",
+              "side": "BUY",
+              "symbol": "US.SPY261218C00700000"
+            },
+            {
+              "limit_price": 0.01,
+              "note": "PLACEHOLDER; replace with live bid before paper execution",
+              "qty": 2,
+              "sec_type": "OPTION",
+              "side": "SELL",
+              "symbol": "US.SPY261218C00720000"
+            }
+          ],
+          "max_debit": 11.91,
+          "max_loss": 1600.0,
+          "reason": "",
+          "risk_pct": 1.01,
+          "symbol": "SPY",
+          "target_debit": 8.0,
+          "thesis": "Post-capitulation reclaim: SPY/QQQ confirm stabilization and VIX cools. Defined-risk call spread caps the loss if the bounce fails."
+        },
+        "regime": "high_vol",
+        "risk": {
+          "approved": true,
+          "blockers": [],
+          "checks": [
+            {
+              "detail": "all positions verified",
+              "hard": true,
+              "name": "positions_reconciled",
+              "passed": true
+            },
+            {
+              "detail": "no short stock",
+              "hard": true,
+              "name": "no_short_stock",
+              "passed": true
+            },
+            {
+              "detail": "no option with DTE <= 2",
+              "hard": true,
+              "name": "no_expiring_options",
+              "passed": true
+            },
+            {
+              "detail": "drawdown=0.00% < kill=8.00%",
+              "hard": true,
+              "name": "kill_switch",
+              "passed": true
+            },
+            {
+              "detail": "drawdown=0.00% < soft=5.00%",
+              "hard": true,
+              "name": "soft_stop",
+              "passed": true
+            },
+            {
+              "detail": "day_pnl=0.00 vs limit=-3174.81",
+              "hard": true,
+              "name": "daily_loss",
+              "passed": true
+            },
+            {
+              "detail": "symbol=SPY blocked=['AMD', 'NVDA']",
+              "hard": true,
+              "name": "blocked_symbol",
+              "passed": true
+            },
+            {
+              "detail": "projected=1600.00 <= max=31748.07",
+              "hard": true,
+              "name": "gross_exposure",
+              "passed": true
+            },
+            {
+              "detail": "max_loss=1600.00 <= max=15874.04",
+              "hard": true,
+              "name": "single_name",
+              "passed": true
+            },
+            {
+              "detail": "risk=1.01% <= max=1.50%",
+              "hard": true,
+              "name": "premium_at_risk",
+              "passed": true
+            },
+            {
+              "detail": "projected=1600.00 <= max=6349.61",
+              "hard": false,
+              "name": "total_open_risk",
+              "passed": true
+            },
+            {
+              "detail": "open=0 < max=2",
+              "hard": true,
+              "name": "open_positions",
+              "passed": true
+            },
+            {
+              "detail": "today=0 < max=3",
+              "hard": true,
+              "name": "new_trades_today",
+              "passed": true
+            },
+            {
+              "detail": "cash=100.00% >= min=80.00%",
+              "hard": true,
+              "name": "cash_buffer",
+              "passed": true
+            },
+            {
+              "detail": "dte=25 >= min=7",
+              "hard": true,
+              "name": "days_to_expiry",
+              "passed": true
+            },
+            {
+              "detail": "spread=4.00% <= max=10.00%",
+              "hard": true,
+              "name": "bid_ask_spread",
+              "passed": true
+            },
+            {
+              "detail": "legs=2; every leg needs qty>0 and a limit price",
+              "hard": true,
+              "name": "limit_only",
+              "passed": true
+            },
+            {
+              "detail": "2026-11-23 10:00 ET inside entry window",
+              "hard": true,
+              "name": "entry_window",
+              "passed": true
+            },
+            {
+              "detail": "final-day cutoff 12:30 ET",
+              "hard": true,
+              "name": "final_flatten",
+              "passed": true
+            }
+          ],
+          "warnings": []
+        },
+        "signal": {
+          "bias": "long",
+          "blockers": [],
+          "invalidation": "SPY closes below 690.20 or VIX > 40; close the spread at -50% of debit, whichever comes first",
+          "reasons": [
+            "VIX 31.20 -> high_vol",
+            "SPY 701.20 (+1.65%), QQQ 620.50 (+1.98%)",
+            "trend=down; breadth_proxy=-0.41pp",
+            "long confirmation: SPY >= 695.00, QQQ >= 612.00, VIX <= 34.00"
+          ],
+          "regime": "high_vol",
+          "score": 72
+        },
+        "ts_et": "2026-11-23T10:00:00-05:00",
+        "ts_utc": "2026-11-21T01:50:32.858466+00:00"
+      },
+      "generated_at_utc": "2026-11-21T01:50:32.858466+00:00",
+      "limits": {
+        "daily_loss_pct": 2.0,
+        "kill_switch_pct": 8.0,
+        "max_premium_at_risk_pct": 1.5,
+        "max_total_open_risk_pct": 4.0,
+        "min_cash_pct": 80.0,
+        "soft_stop_pct": 5.0
+      },
+      "market": {
+        "as_of": "2026-11-23T10:00:00-05:00",
+        "breadth_proxy_pp": -0.41,
+        "meta": {
+          "as_of": "2026-11-23T10:00:00-05:00",
+          "note": "ILLUSTRATIVE scenario for the decision-log demo; not market data. Option debits are assumptions, not live quotes.",
+          "options": {
+            "SPY_CALL_700_720": 8.0,
+            "SPY_CALL_BID_ASK_PCT": 4.0,
+            "SPY_PUT_680_660": 8.0,
+            "SPY_PUT_BID_ASK_PCT": 5.0
+          },
+          "scenario": "bounce_confirmation"
+        },
+        "quotes": {
+          "AMD": {
+            "as_of": "2026-11-23",
+            "atr14": 52.59,
+            "change_pct": 1.32,
+            "close": 430.0,
+            "day_high": 433.0,
+            "day_low": 425.0,
+            "high_20d": 594.0,
+            "low_20d": 402.1,
+            "prev_close": 424.39,
+            "realized_vol20_annual_pct": 135.1,
+            "rsi14": 47.0,
+            "sma20": 509.08,
+            "sma50": 553.1,
+            "symbol": "AMD"
+          },
+          "IWM": {
+            "as_of": "2026-11-23",
+            "atr14": 6.28,
+            "change_pct": 1.24,
+            "close": 259.8,
+            "day_high": 260.4,
+            "day_low": 256.9,
+            "high_20d": 286.17,
+            "low_20d": 256.32,
+            "prev_close": 256.61,
+            "realized_vol20_annual_pct": 29.0,
+            "rsi14": 36.0,
+            "sma20": 276.23,
+            "sma50": 278.26,
+            "symbol": "IWM"
+          },
+          "NVDA": {
+            "as_of": "2026-11-23",
+            "atr14": 12.84,
+            "change_pct": 1.97,
+            "close": 128.0,
+            "day_high": 129.0,
+            "day_low": 126.5,
+            "high_20d": 219.99,
+            "low_20d": 124.5,
+            "prev_close": 125.53,
+            "realized_vol20_annual_pct": 81.0,
+            "rsi14": 20.0,
+            "sma20": 181.46,
+            "sma50": 207.0,
+            "symbol": "NVDA"
+          },
+          "QQQ": {
+            "as_of": "2026-11-23",
+            "atr14": 21.13,
+            "change_pct": 1.98,
+            "close": 620.5,
+            "day_high": 623.0,
+            "day_low": 610.1,
+            "high_20d": 726.14,
+            "low_20d": 606.23,
+            "prev_close": 608.45,
+            "realized_vol20_annual_pct": 42.2,
+            "rsi14": 37.0,
+            "sma20": 678.53,
+            "sma50": 710.96,
+            "symbol": "QQQ"
+          },
+          "SPY": {
+            "as_of": "2026-11-23",
+            "atr14": 16.07,
+            "change_pct": 1.65,
+            "close": 701.2,
+            "day_high": 703.1,
+            "day_low": 690.2,
+            "high_20d": 775.64,
+            "low_20d": 686.75,
+            "prev_close": 689.81,
+            "realized_vol20_annual_pct": 27.7,
+            "rsi14": 38.0,
+            "sma20": 747.81,
+            "sma50": 760.18,
+            "symbol": "SPY"
+          },
+          "VIX": {
+            "as_of": "2026-11-23",
+            "atr14": 5.95,
+            "change_pct": -13.07,
+            "close": 31.2,
+            "day_high": 32.0,
+            "day_low": 30.5,
+            "high_20d": 40.03,
+            "low_20d": 16.21,
+            "prev_close": 35.89,
+            "realized_vol20_annual_pct": 273.6,
+            "rsi14": 70.0,
+            "sma20": 22.57,
+            "sma50": 18.81,
+            "symbol": "VIX"
+          }
+        },
+        "regime": "high_vol",
+        "trend": "down",
+        "vix": 31.2
+      },
+      "mode": "dry_run",
+      "risk": {
+        "approved": true,
+        "blockers": [],
+        "checks": [
+          {
+            "detail": "all positions verified",
+            "hard": true,
+            "name": "positions_reconciled",
+            "passed": true
+          },
+          {
+            "detail": "no short stock",
+            "hard": true,
+            "name": "no_short_stock",
+            "passed": true
+          },
+          {
+            "detail": "no option with DTE <= 2",
+            "hard": true,
+            "name": "no_expiring_options",
+            "passed": true
+          },
+          {
+            "detail": "drawdown=0.00% < kill=8.00%",
+            "hard": true,
+            "name": "kill_switch",
+            "passed": true
+          },
+          {
+            "detail": "drawdown=0.00% < soft=5.00%",
+            "hard": true,
+            "name": "soft_stop",
+            "passed": true
+          },
+          {
+            "detail": "day_pnl=0.00 vs limit=-3174.81",
+            "hard": true,
+            "name": "daily_loss",
+            "passed": true
+          },
+          {
+            "detail": "symbol=SPY blocked=['AMD', 'NVDA']",
+            "hard": true,
+            "name": "blocked_symbol",
+            "passed": true
+          },
+          {
+            "detail": "projected=1600.00 <= max=31748.07",
+            "hard": true,
+            "name": "gross_exposure",
+            "passed": true
+          },
+          {
+            "detail": "max_loss=1600.00 <= max=15874.04",
+            "hard": true,
+            "name": "single_name",
+            "passed": true
+          },
+          {
+            "detail": "risk=1.01% <= max=1.50%",
+            "hard": true,
+            "name": "premium_at_risk",
+            "passed": true
+          },
+          {
+            "detail": "projected=1600.00 <= max=6349.61",
+            "hard": false,
+            "name": "total_open_risk",
+            "passed": true
+          },
+          {
+            "detail": "open=0 < max=2",
+            "hard": true,
+            "name": "open_positions",
+            "passed": true
+          },
+          {
+            "detail": "today=0 < max=3",
+            "hard": true,
+            "name": "new_trades_today",
+            "passed": true
+          },
+          {
+            "detail": "cash=100.00% >= min=80.00%",
+            "hard": true,
+            "name": "cash_buffer",
+            "passed": true
+          },
+          {
+            "detail": "dte=25 >= min=7",
+            "hard": true,
+            "name": "days_to_expiry",
+            "passed": true
+          },
+          {
+            "detail": "spread=4.00% <= max=10.00%",
+            "hard": true,
+            "name": "bid_ask_spread",
+            "passed": true
+          },
+          {
+            "detail": "legs=2; every leg needs qty>0 and a limit price",
+            "hard": true,
+            "name": "limit_only",
+            "passed": true
+          },
+          {
+            "detail": "2026-11-23 10:00 ET inside entry window",
+            "hard": true,
+            "name": "entry_window",
+            "passed": true
+          },
+          {
+            "detail": "final-day cutoff 12:30 ET",
+            "hard": true,
+            "name": "final_flatten",
+            "passed": true
+          }
+        ],
+        "warnings": []
+      },
+      "scenario": "bounce",
+      "signal": {
+        "bias": "long",
+        "blockers": [],
+        "invalidation": "SPY closes below 690.20 or VIX > 40; close the spread at -50% of debit, whichever comes first",
+        "reasons": [
+          "VIX 31.20 -> high_vol",
+          "SPY 701.20 (+1.65%), QQQ 620.50 (+1.98%)",
+          "trend=down; breadth_proxy=-0.41pp",
+          "long confirmation: SPY >= 695.00, QQQ >= 612.00, VIX <= 34.00"
+        ],
+        "regime": "high_vol",
+        "score": 72
+      }
+    },
+    {
+      "account": {
+        "account_id": "EXAMPLE_AFTER_RECONCILE",
+        "as_of": "2026-11-23T09:45:00-05:00",
+        "cash": 158740.37,
+        "cash_pct": 100.0,
+        "day_pnl": 0.0,
+        "drawdown_pct": 0.0,
+        "gross_exposure": 0,
+        "nav": 158740.37,
+        "peak_nav": 158740.37,
+        "positions": [],
+        "source": "ILLUSTRATIVE: replace with the actual post-reconciliation account"
+      },
+      "decision": {
+        "account_id": "EXAMPLE_AFTER_RECONCILE",
+        "agent": "leadguard-orchestrator",
+        "decision_id": "LG-20261121T015032Z-breakdown",
+        "drawdown_pct": 0.0,
+        "executed": false,
+        "mode": "dry_run",
+        "nav": 158740.37,
+        "note": "ILLUSTRATIVE breakdown scenario; option debit is an assumption.",
+        "orders": [],
+        "peak_nav": 158740.37,
+        "proposal": {
+          "action": "BUY_PUT_SPREAD",
+          "bid_ask_pct": 6.0,
+          "close_only": false,
+          "dte": 25,
+          "expiry": "2026-12-18",
+          "invalidation": "SPY reclaims 747.81 or VIX < 30; close the spread at -50% of debit, whichever comes first",
+          "legs": [
+            {
+              "limit_price": 9.0,
+              "note": "net debit; replace with live ask",
+              "qty": 2,
+              "sec_type": "OPTION",
+              "side": "BUY",
+              "symbol": "US.SPY261218P00680000"
+            },
+            {
+              "limit_price": 0.01,
+              "note": "PLACEHOLDER; replace with live bid before paper execution",
+              "qty": 2,
+              "sec_type": "OPTION",
+              "side": "SELL",
+              "symbol": "US.SPY261218P00660000"
+            }
+          ],
+          "max_debit": 11.91,
+          "max_loss": 1800.0,
+          "reason": "",
+          "risk_pct": 1.13,
+          "symbol": "SPY",
+          "target_debit": 9.0,
+          "thesis": "Breakdown continuation: SPY loses Friday's low while VIX stays elevated. Defined-risk put spread participates without naked short exposure."
+        },
+        "regime": "panic",
+        "risk": {
+          "approved": true,
+          "blockers": [],
+          "checks": [
+            {
+              "detail": "all positions verified",
+              "hard": true,
+              "name": "positions_reconciled",
+              "passed": true
+            },
+            {
+              "detail": "no short stock",
+              "hard": true,
+              "name": "no_short_stock",
+              "passed": true
+            },
+            {
+              "detail": "no option with DTE <= 2",
+              "hard": true,
+              "name": "no_expiring_options",
+              "passed": true
+            },
+            {
+              "detail": "drawdown=0.00% < kill=8.00%",
+              "hard": true,
+              "name": "kill_switch",
+              "passed": true
+            },
+            {
+              "detail": "drawdown=0.00% < soft=5.00%",
+              "hard": true,
+              "name": "soft_stop",
+              "passed": true
+            },
+            {
+              "detail": "day_pnl=0.00 vs limit=-3174.81",
+              "hard": true,
+              "name": "daily_loss",
+              "passed": true
+            },
+            {
+              "detail": "symbol=SPY blocked=['AMD', 'NVDA']",
+              "hard": true,
+              "name": "blocked_symbol",
+              "passed": true
+            },
+            {
+              "detail": "projected=1800.00 <= max=31748.07",
+              "hard": true,
+              "name": "gross_exposure",
+              "passed": true
+            },
+            {
+              "detail": "max_loss=1800.00 <= max=15874.04",
+              "hard": true,
+              "name": "single_name",
+              "passed": true
+            },
+            {
+              "detail": "risk=1.13% <= max=1.50%",
+              "hard": true,
+              "name": "premium_at_risk",
+              "passed": true
+            },
+            {
+              "detail": "projected=1800.00 <= max=6349.61",
+              "hard": false,
+              "name": "total_open_risk",
+              "passed": true
+            },
+            {
+              "detail": "open=0 < max=2",
+              "hard": true,
+              "name": "open_positions",
+              "passed": true
+            },
+            {
+              "detail": "today=0 < max=3",
+              "hard": true,
+              "name": "new_trades_today",
+              "passed": true
+            },
+            {
+              "detail": "cash=100.00% >= min=80.00%",
+              "hard": true,
+              "name": "cash_buffer",
+              "passed": true
+            },
+            {
+              "detail": "dte=25 >= min=7",
+              "hard": true,
+              "name": "days_to_expiry",
+              "passed": true
+            },
+            {
+              "detail": "spread=6.00% <= max=10.00%",
+              "hard": true,
+              "name": "bid_ask_spread",
+              "passed": true
+            },
+            {
+              "detail": "legs=2; every leg needs qty>0 and a limit price",
+              "hard": true,
+              "name": "limit_only",
+              "passed": true
+            },
+            {
+              "detail": "2026-11-23 10:00 ET inside entry window",
+              "hard": true,
+              "name": "entry_window",
+              "passed": true
+            },
+            {
+              "detail": "final-day cutoff 12:30 ET",
+              "hard": true,
+              "name": "final_flatten",
+              "passed": true
+            }
+          ],
+          "warnings": []
+        },
+        "signal": {
+          "bias": "short",
+          "blockers": [],
+          "invalidation": "SPY reclaims 747.81 or VIX < 30; close the spread at -50% of debit, whichever comes first",
+          "reasons": [
+            "VIX 39.50 -> panic",
+            "SPY 682.40 (-1.07%), QQQ 600.10 (-1.37%)",
+            "trend=down; breadth_proxy=-0.25pp",
+            "breakdown confirmation: SPY <= 686.75, QQQ <= 606.23, VIX >= 34.00"
+          ],
+          "regime": "panic",
+          "score": 70
+        },
+        "ts_et": "2026-11-23T10:00:00-05:00",
+        "ts_utc": "2026-11-21T01:50:32.859578+00:00"
+      },
+      "generated_at_utc": "2026-11-21T01:50:32.859578+00:00",
+      "limits": {
+        "daily_loss_pct": 2.0,
+        "kill_switch_pct": 8.0,
+        "max_premium_at_risk_pct": 1.5,
+        "max_total_open_risk_pct": 4.0,
+        "min_cash_pct": 80.0,
+        "soft_stop_pct": 5.0
+      },
+      "market": {
+        "as_of": "2026-11-23T10:00:00-05:00",
+        "breadth_proxy_pp": -0.25,
+        "meta": {
+          "as_of": "2026-11-23T10:00:00-05:00",
+          "note": "ILLUSTRATIVE scenario for the decision-log demo; not market data. Option debits are assumptions, not live quotes.",
+          "options": {
+            "SPY_CALL_700_720": 9.0,
+            "SPY_CALL_BID_ASK_PCT": 5.0,
+            "SPY_PUT_680_660": 9.0,
+            "SPY_PUT_BID_ASK_PCT": 6.0
+          },
+          "scenario": "breakdown_confirmation"
+        },
+        "quotes": {
+          "AMD": {
+            "as_of": "2026-11-23",
+            "atr14": 52.59,
+            "change_pct": 1.32,
+            "close": 430.0,
+            "day_high": 433.0,
+            "day_low": 425.0,
+            "high_20d": 594.0,
+            "low_20d": 402.1,
+            "prev_close": 424.39,
+            "realized_vol20_annual_pct": 135.1,
+            "rsi14": 47.0,
+            "sma20": 509.08,
+            "sma50": 553.1,
+            "symbol": "AMD"
+          },
+          "IWM": {
+            "as_of": "2026-11-23",
+            "atr14": 6.28,
+            "change_pct": -1.33,
+            "close": 253.2,
+            "day_high": 256.0,
+            "day_low": 252.5,
+            "high_20d": 286.17,
+            "low_20d": 256.32,
+            "prev_close": 256.61,
+            "realized_vol20_annual_pct": 29.0,
+            "rsi14": 28.0,
+            "sma20": 276.23,
+            "sma50": 278.26,
+            "symbol": "IWM"
+          },
+          "NVDA": {
+            "as_of": "2026-11-23",
+            "atr14": 12.84,
+            "change_pct": 1.97,
+            "close": 128.0,
+            "day_high": 129.0,
+            "day_low": 126.5,
+            "high_20d": 219.99,
+            "low_20d": 124.5,
+            "prev_close": 125.53,
+            "realized_vol20_annual_pct": 81.0,
+            "rsi14": 20.0,
+            "sma20": 181.46,
+            "sma50": 207.0,
+            "symbol": "NVDA"
+          },
+          "QQQ": {
+            "as_of": "2026-11-23",
+            "atr14": 21.13,
+            "change_pct": -1.37,
+            "close": 600.1,
+            "day_high": 609.0,
+            "day_low": 599.0,
+            "high_20d": 726.14,
+            "low_20d": 606.23,
+            "prev_close": 608.45,
+            "realized_vol20_annual_pct": 42.2,
+            "rsi14": 27.0,
+            "sma20": 678.53,
+            "sma50": 710.96,
+            "symbol": "QQQ"
+          },
+          "SPY": {
+            "as_of": "2026-11-23",
+            "atr14": 16.07,
+            "change_pct": -1.07,
+            "close": 682.4,
+            "day_high": 690.0,
+            "day_low": 681.0,
+            "high_20d": 775.64,
+            "low_20d": 686.75,
+            "prev_close": 689.81,
+            "realized_vol20_annual_pct": 27.7,
+            "rsi14": 25.0,
+            "sma20": 747.81,
+            "sma50": 760.18,
+            "symbol": "SPY"
+          },
+          "VIX": {
+            "as_of": "2026-11-23",
+            "atr14": 5.95,
+            "change_pct": 10.06,
+            "close": 39.5,
+            "day_high": 40.5,
+            "day_low": 38.0,
+            "high_20d": 40.03,
+            "low_20d": 16.21,
+            "prev_close": 35.89,
+            "realized_vol20_annual_pct": 273.6,
+            "rsi14": 70.0,
+            "sma20": 22.57,
+            "sma50": 18.81,
+            "symbol": "VIX"
+          }
+        },
+        "regime": "panic",
+        "trend": "down",
+        "vix": 39.5
+      },
+      "mode": "dry_run",
+      "risk": {
+        "approved": true,
+        "blockers": [],
+        "checks": [
+          {
+            "detail": "all positions verified",
+            "hard": true,
+            "name": "positions_reconciled",
+            "passed": true
+          },
+          {
+            "detail": "no short stock",
+            "hard": true,
+            "name": "no_short_stock",
+            "passed": true
+          },
+          {
+            "detail": "no option with DTE <= 2",
+            "hard": true,
+            "name": "no_expiring_options",
+            "passed": true
+          },
+          {
+            "detail": "drawdown=0.00% < kill=8.00%",
+            "hard": true,
+            "name": "kill_switch",
+            "passed": true
+          },
+          {
+            "detail": "drawdown=0.00% < soft=5.00%",
+            "hard": true,
+            "name": "soft_stop",
+            "passed": true
+          },
+          {
+            "detail": "day_pnl=0.00 vs limit=-3174.81",
+            "hard": true,
+            "name": "daily_loss",
+            "passed": true
+          },
+          {
+            "detail": "symbol=SPY blocked=['AMD', 'NVDA']",
+            "hard": true,
+            "name": "blocked_symbol",
+            "passed": true
+          },
+          {
+            "detail": "projected=1800.00 <= max=31748.07",
+            "hard": true,
+            "name": "gross_exposure",
+            "passed": true
+          },
+          {
+            "detail": "max_loss=1800.00 <= max=15874.04",
+            "hard": true,
+            "name": "single_name",
+            "passed": true
+          },
+          {
+            "detail": "risk=1.13% <= max=1.50%",
+            "hard": true,
+            "name": "premium_at_risk",
+            "passed": true
+          },
+          {
+            "detail": "projected=1800.00 <= max=6349.61",
+            "hard": false,
+            "name": "total_open_risk",
+            "passed": true
+          },
+          {
+            "detail": "open=0 < max=2",
+            "hard": true,
+            "name": "open_positions",
+            "passed": true
+          },
+          {
+            "detail": "today=0 < max=3",
+            "hard": true,
+            "name": "new_trades_today",
+            "passed": true
+          },
+          {
+            "detail": "cash=100.00% >= min=80.00%",
+            "hard": true,
+            "name": "cash_buffer",
+            "passed": true
+          },
+          {
+            "detail": "dte=25 >= min=7",
+            "hard": true,
+            "name": "days_to_expiry",
+            "passed": true
+          },
+          {
+            "detail": "spread=6.00% <= max=10.00%",
+            "hard": true,
+            "name": "bid_ask_spread",
+            "passed": true
+          },
+          {
+            "detail": "legs=2; every leg needs qty>0 and a limit price",
+            "hard": true,
+            "name": "limit_only",
+            "passed": true
+          },
+          {
+            "detail": "2026-11-23 10:00 ET inside entry window",
+            "hard": true,
+            "name": "entry_window",
+            "passed": true
+          },
+          {
+            "detail": "final-day cutoff 12:30 ET",
+            "hard": true,
+            "name": "final_flatten",
+            "passed": true
+          }
+        ],
+        "warnings": []
+      },
+      "scenario": "breakdown",
+      "signal": {
+        "bias": "short",
+        "blockers": [],
+        "invalidation": "SPY reclaims 747.81 or VIX < 30; close the spread at -50% of debit, whichever comes first",
+        "reasons": [
+          "VIX 39.50 -> panic",
+          "SPY 682.40 (-1.07%), QQQ 600.10 (-1.37%)",
+          "trend=down; breadth_proxy=-0.25pp",
+          "breakdown confirmation: SPY <= 686.75, QQQ <= 606.23, VIX >= 34.00"
+        ],
+        "regime": "panic",
+        "score": 70
+      }
+    },
+    {
+      "account": {
+        "account_id": "EXAMPLE_AFTER_RECONCILE",
+        "as_of": "2026-11-23T09:45:00-05:00",
+        "cash": 158740.37,
+        "cash_pct": 100.0,
+        "day_pnl": 0.0,
+        "drawdown_pct": 0.0,
+        "gross_exposure": 0,
+        "nav": 158740.37,
+        "peak_nav": 158740.37,
+        "positions": [],
+        "source": "ILLUSTRATIVE: replace with the actual post-reconciliation account"
+      },
+      "decision": {
+        "account_id": "EXAMPLE_AFTER_RECONCILE",
+        "agent": "leadguard-orchestrator",
+        "decision_id": "LG-20261121T015032Z-chop",
+        "drawdown_pct": 0.0,
+        "executed": false,
+        "mode": "dry_run",
+        "nav": 158740.37,
+        "note": "ILLUSTRATIVE chop scenario; cash is the correct position.",
+        "orders": [],
+        "peak_nav": 158740.37,
+        "proposal": {
+          "action": "HOLD",
+          "bid_ask_pct": null,
+          "close_only": false,
+          "dte": null,
+          "expiry": null,
+          "invalidation": "re-evaluate after the first 30 minutes of the next session",
+          "legs": [],
+          "max_debit": null,
+          "max_loss": 0.0,
+          "reason": "No confirmed edge. Preserve capital and wait.",
+          "risk_pct": 0.0,
+          "symbol": "CASH",
+          "target_debit": null,
+          "thesis": "The account already has a large realized edge; the marginal trade must clear a high bar."
+        },
+        "regime": "panic",
+        "risk": {
+          "approved": false,
+          "blockers": [],
+          "checks": [
+            {
+              "detail": "HOLD: no order to approve",
+              "hard": false,
+              "name": "trade_proposal",
+              "passed": false
+            }
+          ],
+          "warnings": [
+            "trade_proposal: HOLD: no order to approve"
+          ]
+        },
+        "signal": {
+          "bias": "flat",
+          "blockers": [],
+          "invalidation": "re-evaluate after the first 30 minutes of the next session",
+          "reasons": [
+            "VIX 35.20 -> panic",
+            "SPY 692.30 (+0.36%), QQQ 611.80 (+0.55%)",
+            "trend=down; breadth_proxy=-0.01pp",
+            "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+          ],
+          "regime": "panic",
+          "score": 0
+        },
+        "ts_et": "2026-11-23T10:00:00-05:00",
+        "ts_utc": "2026-11-21T01:50:32.860625+00:00"
+      },
+      "generated_at_utc": "2026-11-21T01:50:32.860625+00:00",
+      "limits": {
+        "daily_loss_pct": 2.0,
+        "kill_switch_pct": 8.0,
+        "max_premium_at_risk_pct": 1.5,
+        "max_total_open_risk_pct": 4.0,
+        "min_cash_pct": 80.0,
+        "soft_stop_pct": 5.0
+      },
+      "market": {
+        "as_of": "2026-11-23T10:00:00-05:00",
+        "breadth_proxy_pp": -0.01,
+        "meta": {
+          "as_of": "2026-11-23T10:00:00-05:00",
+          "note": "ILLUSTRATIVE scenario for the decision-log demo; not market data.",
+          "options": {
+            "SPY_CALL_700_720": 8.0,
+            "SPY_CALL_BID_ASK_PCT": 4.0,
+            "SPY_PUT_680_660": 8.0,
+            "SPY_PUT_BID_ASK_PCT": 5.0
+          },
+          "scenario": "chop"
+        },
+        "quotes": {
+          "AMD": {
+            "as_of": "2026-11-23",
+            "atr14": 52.59,
+            "change_pct": 1.32,
+            "close": 430.0,
+            "day_high": 433.0,
+            "day_low": 425.0,
+            "high_20d": 594.0,
+            "low_20d": 402.1,
+            "prev_close": 424.39,
+            "realized_vol20_annual_pct": 135.1,
+            "rsi14": 47.0,
+            "sma20": 509.08,
+            "sma50": 553.1,
+            "symbol": "AMD"
+          },
+          "IWM": {
+            "as_of": "2026-11-23",
+            "atr14": 6.28,
+            "change_pct": 0.35,
+            "close": 257.5,
+            "day_high": 260.0,
+            "day_low": 256.8,
+            "high_20d": 286.17,
+            "low_20d": 256.32,
+            "prev_close": 256.61,
+            "realized_vol20_annual_pct": 29.0,
+            "rsi14": 34.0,
+            "sma20": 276.23,
+            "sma50": 278.26,
+            "symbol": "IWM"
+          },
+          "NVDA": {
+            "as_of": "2026-11-23",
+            "atr14": 12.84,
+            "change_pct": 1.97,
+            "close": 128.0,
+            "day_high": 129.0,
+            "day_low": 126.5,
+            "high_20d": 219.99,
+            "low_20d": 124.5,
+            "prev_close": 125.53,
+            "realized_vol20_annual_pct": 81.0,
+            "rsi14": 20.0,
+            "sma20": 181.46,
+            "sma50": 207.0,
+            "symbol": "NVDA"
+          },
+          "QQQ": {
+            "as_of": "2026-11-23",
+            "atr14": 21.13,
+            "change_pct": 0.55,
+            "close": 611.8,
+            "day_high": 619.0,
+            "day_low": 609.0,
+            "high_20d": 726.14,
+            "low_20d": 606.23,
+            "prev_close": 608.45,
+            "realized_vol20_annual_pct": 42.2,
+            "rsi14": 33.0,
+            "sma20": 678.53,
+            "sma50": 710.96,
+            "symbol": "QQQ"
+          },
+          "SPY": {
+            "as_of": "2026-11-23",
+            "atr14": 16.07,
+            "change_pct": 0.36,
+            "close": 692.3,
+            "day_high": 699.0,
+            "day_low": 690.5,
+            "high_20d": 775.64,
+            "low_20d": 686.75,
+            "prev_close": 689.81,
+            "realized_vol20_annual_pct": 27.7,
+            "rsi14": 33.0,
+            "sma20": 747.81,
+            "sma50": 760.18,
+            "symbol": "SPY"
+          },
+          "VIX": {
+            "as_of": "2026-11-23",
+            "atr14": 5.95,
+            "change_pct": -1.92,
+            "close": 35.2,
+            "day_high": 36.0,
+            "day_low": 34.5,
+            "high_20d": 40.03,
+            "low_20d": 16.21,
+            "prev_close": 35.89,
+            "realized_vol20_annual_pct": 273.6,
+            "rsi14": 70.0,
+            "sma20": 22.57,
+            "sma50": 18.81,
+            "symbol": "VIX"
+          }
+        },
+        "regime": "panic",
+        "trend": "down",
+        "vix": 35.2
+      },
+      "mode": "dry_run",
+      "risk": {
+        "approved": false,
+        "blockers": [],
+        "checks": [
+          {
+            "detail": "HOLD: no order to approve",
+            "hard": false,
+            "name": "trade_proposal",
+            "passed": false
+          }
+        ],
+        "warnings": [
+          "trade_proposal: HOLD: no order to approve"
+        ]
+      },
+      "scenario": "chop",
+      "signal": {
+        "bias": "flat",
+        "blockers": [],
+        "invalidation": "re-evaluate after the first 30 minutes of the next session",
+        "reasons": [
+          "VIX 35.20 -> panic",
+          "SPY 692.30 (+0.36%), QQQ 611.80 (+0.55%)",
+          "trend=down; breadth_proxy=-0.01pp",
+          "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+        ],
+        "regime": "panic",
+        "score": 0
+      }
+    }
+  ],
+  "generated_at_utc": "2026-11-21T01:50:32.860625+00:00",
+  "limits": {
+    "daily_loss_pct": 2.0,
+    "kill_switch_pct": 8.0,
+    "max_premium_at_risk_pct": 1.5,
+    "max_total_open_risk_pct": 4.0,
+    "min_cash_pct": 80.0,
+    "soft_stop_pct": 5.0
+  },
+  "market": {
+    "as_of": "2026-11-23T10:00:00-05:00",
+    "breadth_proxy_pp": -0.01,
+    "meta": {
+      "as_of": "2026-11-23T10:00:00-05:00",
+      "note": "ILLUSTRATIVE scenario for the decision-log demo; not market data.",
+      "options": {
+        "SPY_CALL_700_720": 8.0,
+        "SPY_CALL_BID_ASK_PCT": 4.0,
+        "SPY_PUT_680_660": 8.0,
+        "SPY_PUT_BID_ASK_PCT": 5.0
+      },
+      "scenario": "chop"
+    },
+    "quotes": {
+      "AMD": {
+        "as_of": "2026-11-23",
+        "atr14": 52.59,
+        "change_pct": 1.32,
+        "close": 430.0,
+        "day_high": 433.0,
+        "day_low": 425.0,
+        "high_20d": 594.0,
+        "low_20d": 402.1,
+        "prev_close": 424.39,
+        "realized_vol20_annual_pct": 135.1,
+        "rsi14": 47.0,
+        "sma20": 509.08,
+        "sma50": 553.1,
+        "symbol": "AMD"
+      },
+      "IWM": {
+        "as_of": "2026-11-23",
+        "atr14": 6.28,
+        "change_pct": 0.35,
+        "close": 257.5,
+        "day_high": 260.0,
+        "day_low": 256.8,
+        "high_20d": 286.17,
+        "low_20d": 256.32,
+        "prev_close": 256.61,
+        "realized_vol20_annual_pct": 29.0,
+        "rsi14": 34.0,
+        "sma20": 276.23,
+        "sma50": 278.26,
+        "symbol": "IWM"
+      },
+      "NVDA": {
+        "as_of": "2026-11-23",
+        "atr14": 12.84,
+        "change_pct": 1.97,
+        "close": 128.0,
+        "day_high": 129.0,
+        "day_low": 126.5,
+        "high_20d": 219.99,
+        "low_20d": 124.5,
+        "prev_close": 125.53,
+        "realized_vol20_annual_pct": 81.0,
+        "rsi14": 20.0,
+        "sma20": 181.46,
+        "sma50": 207.0,
+        "symbol": "NVDA"
+      },
+      "QQQ": {
+        "as_of": "2026-11-23",
+        "atr14": 21.13,
+        "change_pct": 0.55,
+        "close": 611.8,
+        "day_high": 619.0,
+        "day_low": 609.0,
+        "high_20d": 726.14,
+        "low_20d": 606.23,
+        "prev_close": 608.45,
+        "realized_vol20_annual_pct": 42.2,
+        "rsi14": 33.0,
+        "sma20": 678.53,
+        "sma50": 710.96,
+        "symbol": "QQQ"
+      },
+      "SPY": {
+        "as_of": "2026-11-23",
+        "atr14": 16.07,
+        "change_pct": 0.36,
+        "close": 692.3,
+        "day_high": 699.0,
+        "day_low": 690.5,
+        "high_20d": 775.64,
+        "low_20d": 686.75,
+        "prev_close": 689.81,
+        "realized_vol20_annual_pct": 27.7,
+        "rsi14": 33.0,
+        "sma20": 747.81,
+        "sma50": 760.18,
+        "symbol": "SPY"
+      },
+      "VIX": {
+        "as_of": "2026-11-23",
+        "atr14": 5.95,
+        "change_pct": -1.92,
+        "close": 35.2,
+        "day_high": 36.0,
+        "day_low": 34.5,
+        "high_20d": 40.03,
+        "low_20d": 16.21,
+        "prev_close": 35.89,
+        "realized_vol20_annual_pct": 273.6,
+        "rsi14": 70.0,
+        "sma20": 22.57,
+        "sma50": 18.81,
+        "symbol": "VIX"
+      }
+    },
+    "regime": "panic",
+    "trend": "down",
+    "vix": 35.2
+  },
+  "mode": "dry_run",
+  "reported_account": {
+    "account_id": "REPORTED_SCREENSHOT_2026-11-20",
+    "as_of": "2026-11-20T20:00:00-05:00",
+    "cash": 485118.37,
+    "cash_pct": 305.6,
+    "day_pnl": 0.0,
+    "drawdown_pct": 0.0,
+    "gross_exposure": 326378.0,
+    "nav": 158740.37,
+    "peak_nav": 158740.37,
+    "positions": [
+      {
+        "avg_cost": 172.5,
+        "days_to_expiry": null,
+        "expiry": null,
+        "is_short_stock": true,
+        "last": 125.53,
+        "market_value": -326378.0,
+        "note": "INFERRED: long 11-20 172.50 put was ITM and auto-exercised into a short stock position. Verify quantity and direction in the app before any order.",
+        "option_type": null,
+        "qty": -2600.0,
+        "sec_type": "STOCK",
+        "strike": null,
+        "symbol": "NVDA",
+        "unrealized_pnl": 122122.0,
+        "verified": false
+      },
+      {
+        "avg_cost": 9.2333,
+        "days_to_expiry": -1,
+        "expiry": "2026-11-20",
+        "is_short_stock": false,
+        "last": 0.0,
+        "market_value": 0.0,
+        "note": "Expired OTM on 2026-11-20; screenshot showed cost 2770. Verify that it is gone.",
+        "option_type": "CALL",
+        "qty": 3.0,
+        "sec_type": "OPTION",
+        "strike": 462.5,
+        "symbol": "US.AMD261120C462500",
+        "unrealized_pnl": -2770.0,
+        "verified": false
+      }
+    ],
+    "source": "User screenshots + inferred option assignment; VERIFY IN APP"
+  },
+  "risk": {
+    "approved": false,
+    "blockers": [],
+    "checks": [
+      {
+        "detail": "HOLD: no order to approve",
+        "hard": false,
+        "name": "trade_proposal",
+        "passed": false
+      }
+    ],
+    "warnings": [
+      "trade_proposal: HOLD: no order to approve"
+    ]
+  },
+  "scenario": "chop",
+  "signal": {
+    "bias": "flat",
+    "blockers": [],
+    "invalidation": "re-evaluate after the first 30 minutes of the next session",
+    "reasons": [
+      "VIX 35.20 -> panic",
+      "SPY 692.30 (+0.36%), QQQ 611.80 (+0.55%)",
+      "trend=down; breadth_proxy=-0.01pp",
+      "no confirmed edge: wait for a reclaim or a breakdown; cash is a position"
+    ],
+    "regime": "panic",
+    "score": 0
+  }
+}

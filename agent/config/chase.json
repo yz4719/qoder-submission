@@ -1,0 +1,61 @@
+{
+  "_profile": "chase — only if the leaderboard requires a step change. Same hard rules, 15% per trade and 30% total open risk. A failed bounce costs roughly 7% of NAV at the -50% stop.",
+  "mode": "dry_run",
+  "account_id": "REPLACE_WITH_SIM_ACCOUNT_ID",
+  "initial_nav": 100000.0,
+  "nav": 158740.37,
+  "peak_nav": 158740.37,
+  "timezone": "America/New_York",
+  "risk": {
+    "max_drawdown_pct": 12.0,
+    "soft_stop_drawdown_pct": 8.0,
+    "daily_loss_limit_pct": 4.0,
+    "max_gross_exposure_pct": 35.0,
+    "max_single_name_pct": 20.0,
+    "max_premium_at_risk_pct_per_trade": 15.0,
+    "max_total_open_risk_pct": 30.0,
+    "max_open_positions": 2,
+    "max_new_trades_per_day": 4,
+    "max_contracts_per_spread": 40,
+    "min_cash_pct": 60.0,
+    "min_days_to_expiry": 7,
+    "max_bid_ask_pct": 10.0,
+    "no_naked_short_options": true,
+    "no_short_stock": true,
+    "no_0dte": true,
+    "kill_switch_drawdown_pct": 12.0
+  },
+  "universe": ["SPY", "QQQ", "IWM"],
+  "blocked_symbols": ["NVDA", "AMD"],
+  "triggers": {
+    "spy_long": 695.0,
+    "qqq_long": 612.0,
+    "vix_long_max": 34.0,
+    "spy_short": 686.75,
+    "qqq_short": 606.23,
+    "vix_short_min": 34.0
+  },
+  "dates": {
+    "as_of": "2026-11-20",
+    "first_trading_day": "2026-11-23",
+    "last_new_position_day": "2026-11-25",
+    "last_new_position_time_et": "13:00",
+    "final_trading_day": "2026-11-27",
+    "final_flatten_time_et": "12:30",
+    "market_closed": ["2026-11-26"]
+  },
+  "execution": {
+    "entry_window_et": ["09:45", "15:30"],
+    "no_new_after_et": "15:30",
+    "max_slippage_pct": 10.0,
+    "limit_only": true,
+    "paper_requires_confirm": true
+  },
+  "paths": {
+    "quotes": "fixtures/quotes_2026-11-20.json",
+    "account": "fixtures/account_2026-11-20.json",
+    "decisions": "../dashboard/data/decisions_chase.jsonl",
+    "state": "../dashboard/data/state_chase.json",
+    "report": "../dashboard/report_chase.html"
+  }
+}
