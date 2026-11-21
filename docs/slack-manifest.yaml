@@ -1,0 +1,31 @@
+# Slack app manifest for the LeadGuard channel (handbook part 5).
+# Slack Apps -> Create New App -> From an app manifest -> pick workspace -> paste this.
+# After creating: Basic Information -> App-Level Tokens -> Generate (scope
+# connections:write) to get the xapp- token, then Install App for the xoxb- token.
+# Both tokens go into the Qoder Create Bot dialog only. Never commit them.
+display_information:
+  name: moomoo-trader-alerts
+  description: LeadGuard paper-trading briefs, risk alerts and decision summaries.
+  background_color: "#0b1020"
+features:
+  bot_user:
+    display_name: LeadGuard
+    always_online: true
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - chat:write
+      - im:history
+      - im:read
+      - im:write
+      - channels:history
+      - groups:history
+settings:
+  event_subscriptions:
+    bot_events:
+      - app_mention
+      - message.im
+  socket_mode_enabled: true
+  org_deploy_enabled: false
+  token_rotation_enabled: false
