@@ -52,12 +52,21 @@ qoder/leadguard.zip             skill packaged for Cloud Agents upload
 - **Local Qoder** built the package, ran the demo and tests, generated the report
   and this deck, and produced the docs.
 - **Qoder Cloud Agents** (Personal workspace, created 21 Nov 2026):
-  - Coordinator `agent_00w4cqrf9q4u876oa3j2`
-  - Researcher `agent_00w4cqea6yy9t8kjkhqr`
-  - Risk Auditor `agent_00w4cqeflqy2otw9450h`
-  - Executor `agent_00w4cqejwke0w1omxxja`
-  - Advisor `agent_00w4cqenzwkqol4j4nb2`
-  - Environment `env_00w4crigtnpxdgjignzq` (Python 3, stdlib only)
+  - Coordinator `agent_00w69x99gvrb4xr65vio` ("LeadGuard Coordinator v2",
+    pins the researcher/executor versions below)
+  - Researcher `agent_00w4cqea6yy9t8kjkhqr` (v2)
+  - Risk Auditor `agent_00w4cqeflqy2otw9450h` (v1)
+  - Executor `agent_00w4cqejwke0w1omxxja` (v2)
+  - Advisor `agent_00w4cqenzwkqol4j4nb2` (v1)
+  - Forward Template `tmpl_061d1be5116e1ee4892304c0`
+    ("LeadGuard Daily Paper Trading"), vault `vault_00w688ylwd24g70flezk`
+    (`moomoo-mcp`), Environment `env_00w686v3axurm3lkmpae`
+  - Moomoo MCP (`https://mcp.moomoo.com/mcp`) is bound to Researcher and
+    Executor through the vault; the risk auditor, advisor and coordinator stay
+    credential-free.
+  - Eight Moomoo skills (quote, news, digest, sentiment, three unusual-activity
+    packs, sim trading) are bound at template level.
+  - Version history: `AGENTS.md`.
 
   The Agent definitions are live; running a session requires mounting this package
   (GitHub repo or file resource) — see `docs/RUNBOOK.md`.
