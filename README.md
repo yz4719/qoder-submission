@@ -54,22 +54,40 @@ qoder/leadguard.zip             skill packaged for Cloud Agents upload
 - **Qoder Cloud Agents** (Personal workspace, created 21 Nov 2026):
   - Coordinator `agent_00w69x99gvrb4xr65vio` ("LeadGuard Coordinator v2",
     pins the researcher/executor versions below)
-  - Researcher `agent_00w4cqea6yy9t8kjkhqr` (v2)
-  - Risk Auditor `agent_00w4cqeflqy2otw9450h` (v1)
-  - Executor `agent_00w4cqejwke0w1omxxja` (v2)
-  - Advisor `agent_00w4cqenzwkqol4j4nb2` (v1)
+  - Researcher `agent_00w4cqea6yy9t8kjkhqr` (v3)
+  - Risk Auditor `agent_00w4cqeflqy2otw9450h` (v2)
+  - Executor `agent_00w4cqejwke0w1omxxja` (v3)
+  - Advisor `agent_00w4cqenzwkqol4j4nb2` (v2)
   - Forward Template `tmpl_061d1be5116e1ee4892304c0`
     ("LeadGuard Daily Paper Trading"), vault `vault_00w688ylwd24g70flezk`
     (`moomoo-mcp`), Environment `env_00w686v3axurm3lkmpae`
+  - This repository is mounted at `/data/workspace/qoder-submission`
+    (`repo_mwqj14le_1`, read-only) and is the working copy used by every cloud
+    run.
   - Moomoo MCP (`https://mcp.moomoo.com/mcp`) is bound to Researcher and
-    Executor through the vault; the risk auditor, advisor and coordinator stay
-    credential-free.
+    Executor; the risk auditor, advisor and coordinator stay credential-free.
+    The two read-only agents have Read/Glob/Grep set to `always_allow` so that
+    scheduled runs do not stall on approval prompts; they hold no credentials,
+    so this cannot become order capability.
   - Eight Moomoo skills (quote, news, digest, sentiment, three unusual-activity
     packs, sim trading) are bound at template level.
   - Version history: `AGENTS.md`.
 
-  The Agent definitions are live; running a session requires mounting this package
-  (GitHub repo or file resource) — see `docs/RUNBOOK.md`.
+  The pre-market schedule (`sched_741c144265ed0bd75c524391`) has run end to end
+  unattended: reconcile, session brief, proposal, audit, decision log, report.
+  The post-close schedule (`sched_54e34049c9dc80173655aea0`) is created but
+  still paused.
+
+## Current paper account state
+
+The competition paper account (5830188) came into this build with a pre-existing
+NVDA short of 2,298 shares, roughly 180% of NAV. That breaches the handbook's
+40% single-name exposure cap, and with buying power at 0 (`max_buy_back_qty = 0`)
+the agent cannot cover it on its own. The 2026-11-21 proposal to cover was
+correctly rejected by the Risk Auditor. Closing the short requires either broker
+liquidity or an organiser-side reset; the agent does not place, amend or cancel
+orders it did not create. Figures in this repository are the ones the agent
+verified at 2026-11-21T15:02Z; the organisers' backend prevails.
 
 ## Verified vs inferred
 
